@@ -26,7 +26,7 @@
             position: absolute; inset: 0; z-index: 100;
             background: url('awal.png') center/100% 100% no-repeat;
             display: flex; align-items: flex-end; justify-content: center; 
-            padding-bottom: 120%; transition: opacity 1s ease;
+            padding-bottom: 95%; transition: opacity 1s ease;
         }
 
         .btn-buka {
@@ -60,19 +60,19 @@
         
         /* Posisi Koordinat & Ukuran Persen */
         .icon-1 { width: 26%; top: 37%; left: 5%; }
-        .icon-2 { width: 28%; top: 46%; left: 45%; }
-        .icon-3 { width: 30%; top: 42%; left: 67.5%; }
-        .icon-4 { width: 23%; top: 58.5%; left: 54.5%; }
+        .icon-2 { width: 28%; top: 48%; left: 45%; }
+        .icon-3 { width: 30%; top: 44%; left: 67.5%; }
+        .icon-4 { width: 23%; top: 60%; left: 54.5%; }
         .icon-5 { width: 33%; top: 70%; left: 43%; }
-        .icon-6 { width: 48%; top: 54%; left: 0%; }
+        .icon-6 { width: 48%; top: 54%; left: 5%; }
 
-        /* --- 5. AREA INTERAKTIF KUCING (DIPERBAIKI) --- */
+        /* --- 5. AREA INTERAKTIF KUCING (RUMPUT DI PALING BAWAH LAYAR) --- */
         #cat-area { 
             position: absolute; 
-            bottom: 9%; /* Dinaikkan agar tidak terpotong di bagian bawah HP mana pun */
+            bottom: 0; /* Menempel mutlak di paling bawah layar */
             left: 0; 
             width: 100%; 
-            height: 180px; 
+            height: 160px; 
             z-index: 20; 
             pointer-events: none; 
         }
@@ -82,7 +82,7 @@
             z-index: 50; 
             width: 85px; 
             left: 20px; 
-            bottom: 12px; /* Disesuaikan agar pas berada di atas rumput */
+            bottom: 8px; /* Wadah makan pas di atas rumput paling bawah */
             display: flex; 
             flex-direction: column; 
             align-items: center; 
@@ -98,12 +98,13 @@
             z-index: 21; 
             width: 140px; 
             height: 140px; 
-            bottom: 2px; /* Kaki kucing menapak sempurna di rumput saat patroli */
+            bottom: -2px; /* Kaki kucing menapak sempurna di rumput saat jalan */
         }
         #cat-bubble { position: absolute; top: 25px; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.9); padding: 2px 6px; border-radius: 8px; font-size: 11px; font-weight: bold; color: #333; opacity: 0; transition: opacity 0.3s; z-index: 100; white-space: nowrap; }
         .cat-vid { width: 100%; height: 100%; object-fit: contain; }
+        
         #grass-layer { position: absolute; bottom: 0; left: 0; width: 100%; pointer-events: none; z-index: 30; display: flex; align-items: flex-end; }
-        #grass-image { width: 100%; height: auto; margin-bottom: -5px; }
+        #grass-image { width: 100%; height: auto; margin-bottom: -2px; }
 
         /* --- 6. MODAL SYSTEM --- */
         #modal { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; }
@@ -416,9 +417,9 @@
             bubble.innerText = "Terima kasih, meow!"; bubble.style.opacity = "1";
             catBox.style.transition = "left 3s ease-out, bottom 3s ease-out"; 
             
-            /* Koordinat kucing menyamperkan wadah makan yang sudah disesuaikan posisinya */
+            /* Posisi kucing berhenti menyamper wadah makan pas di atas rumput paling bawah */
             catBox.style.left = "15px"; 
-            catBox.style.bottom = "36px"; 
+            catBox.style.bottom = "24px"; 
             
             walkR.classList.add('hidden'); walkL.classList.remove('hidden'); walkL.play();
             setTimeout(() => {
@@ -429,8 +430,8 @@
                     window.isEating = false; foodWrapper.classList.add('pulse-active');
                     catBox.style.transition = "bottom 0.5s ease, width 0.5s ease";
                     
-                    /* Dikembalikan persis menapak di atas rumput semula */
-                    catBox.style.bottom = "2px"; 
+                    /* Dikembalikan menapak di atas rumput semula */
+                    catBox.style.bottom = "-2px"; 
                     catBox.style.width = "140px"; 
                     startPatrol();
                 }, 5000);
