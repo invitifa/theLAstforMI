@@ -8,30 +8,31 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body, html { height: 100%; overflow: hidden; background: #000; display: flex; justify-content: center; align-items: center; }
 
-        /* --- KUNCI TOTAL AREA SCREEN DI SEMUA TIPE HP --- */
+        /* --- KUNCI TOTAL AREA DAN JADIKAN ACUAN UKURAN (CONTAINER) --- */
         .app-container {
             position: relative;
             width: 100vw;
             height: 100vh;
-            max-width: 450px; /* Batas lebar HP standar */
-            max-height: 920px; /* Batas tinggi HP standar panjang */
+            max-width: 450px; 
+            max-height: 920px; 
             overflow: hidden;
             background: #000;
             box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            container-type: inline-size; /* Membuat semua elemen di dalam bisa mendeteksi perubahan lebar HP */
         }
 
         /* --- 1. OVERLAY AWAL --- */
         #overlay-awal {
             position: absolute; inset: 0; z-index: 100;
-            background: url('awal.png') center/100% 100% no-repeat; /* Kunci background 100% penuh tanpa potong */
+            background: url('awal.png') center/100% 100% no-repeat;
             display: flex; align-items: flex-end; justify-content: center; 
-            padding-bottom: 32%; transition: opacity 1s ease;
+            padding-bottom: 65cqw; transition: opacity 1s ease;
         }
 
         .btn-buka {
-            padding: 10px 30px; border: 2px solid rgba(255,255,255,0.5); border-radius: 12px;
+            padding: 2.5cqw 7cqw; border: 2px solid rgba(255,255,255,0.5); border-radius: 12px;
             background: #c18f30; color: white; cursor: pointer; font-weight: 800;
-            text-transform: uppercase; letter-spacing: 3px; font-size: 16px;
+            text-transform: uppercase; letter-spacing: 3px; font-size: 4cqw;
             box-shadow: 0 8px 20px rgba(0,0,0,0.4); transition: all 0.3s ease;
         }
 
@@ -45,38 +46,37 @@
 
         /* --- 3. BACKGROUND MEDIA --- */
         #bg-container { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
-        .bg-media { width: 100%; height: 100%; object-fit: fill; position: absolute; transition: opacity 1.5s; opacity: 0; } /* Mengunci rasio background utama agar tidak lari */
+        .bg-media { width: 100%; height: 100%; object-fit: fill; position: absolute; transition: opacity 1.5s; opacity: 0; }
 
-        /* --- 4. IKON MENU --- */
+        /* --- 4. IKON MENU (UKURAN DIUBAH MENJADI RESPONSIF CQW) --- */
         #main-content { position: absolute; inset: 0; z-index: 10; opacity: 0; transition: opacity 2s ease-in-out; pointer-events: none; }
         
-        /* Posisi teks petunjuk dikunci presisi */
-        #hint-text { position: absolute; top: 24%; left: 50%; transform: translateX(-50%); color: #8a9549; font-size: 13px; font-weight: 700; letter-spacing: 1px; text-shadow: 0 0 10px rgba(0,0,0,0.5); animation: softFlicker 3s infinite ease-in-out; pointer-events: none; text-align: center; width: 100%; }
+        #hint-text { position: absolute; top: 24%; left: 50%; transform: translateX(-50%); color: #8a9549; font-size: 3.2cqw; font-weight: 700; letter-spacing: 1px; text-shadow: 0 0 10px rgba(0,0,0,0.5); animation: softFlicker 3s infinite ease-in-out; pointer-events: none; text-align: center; width: 100%; }
         @keyframes softFlicker { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
         
         .icon-item { position: absolute; height: auto; cursor: pointer; pointer-events: auto; animation: floatWobble 6s ease-in-out infinite; }
         .icon-item img { width: 100%; height: auto; display: block; filter: drop-shadow(4px 6px 10px rgba(0, 0, 0, 0.4)); transition: transform 0.3s ease; }
-        @keyframes floatWobble { 0%, 100% { transform: translateY(0) rotate(0deg); } 25% { transform: translateY(-8px) rotate(1deg); } 50% { transform: translateY(-4px) rotate(-1deg); } 75% { transform: translateY(-10px) rotate(0.5deg); } }
+        @keyframes floatWobble { 0%, 100% { transform: translateY(0) rotate(0deg); } 25% { transform: translateY(-1.5cqw) rotate(1deg); } 50% { transform: translateY(-0.8cqw) rotate(-1deg); } 75% { transform: translateY(-2cqw) rotate(0.5deg); } }
         
-        /* Posisi Ikon Melayang Absolut */
-        .icon-1 { width: 115px; top: 33%; left: 5%; }
-        .icon-2 { width: 120px; top: 44%; left: 45%; }
-        .icon-3 { width: 132px; top: 39%; left: 67.5%; }
-        .icon-4 { width: 100px; top: 55.5%; left: 54.5%; }
-        .icon-5 { width: 145px; top: 67%; left: 43%; }
-        .icon-6 { width: 215px; top: 51%; left: 0%; }
+        /* Ukuran benda melayang sekarang otomatis mengecil jika layar HP mengecil */
+        .icon-1 { width: 26cqw; top: 33%; left: 5%; }
+        .icon-2 { width: 27cqw; top: 44%; left: 45%; }
+        .icon-3 { width: 29cqw; top: 39%; left: 67.5%; }
+        .icon-4 { width: 23cqw; top: 55.5%; left: 54.5%; }
+        .icon-5 { width: 32cqw; top: 67%; left: 43%; }
+        .icon-6 { width: 48cqw; top: 51%; left: 0%; }
 
-        /* --- 5. KUCING --- */
-        #cat-area { position: absolute; bottom: 0; left: 0; width: 100%; height: 200px; z-index: 20; pointer-events: none; }
-        #food-wrapper { position: absolute; pointer-events: auto; z-index: 50; width: 90px; left: 24px; bottom: 14px; display: flex; flex-direction: column; align-items: center; }
+        /* --- 5. KUCING (UKURAN DIUBAH MENJADI RESPONSIF CQW) --- */
+        #cat-area { position: absolute; bottom: 0; left: 0; width: 100%; height: 45cqw; z-index: 20; pointer-events: none; }
+        #food-wrapper { position: absolute; pointer-events: auto; z-index: 50; width: 20cqw; left: 5cqw; bottom: 3cqw; display: flex; flex-direction: column; align-items: center; }
         .pulse-active { animation: bowlShake 0.8s infinite ease-in-out; }
-        @keyframes bowlShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-1.5px) rotate(-1deg); } 75% { transform: translateX(1.5px) rotate(1deg); } }
+        @keyframes bowlShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-0.5cqw) rotate(-1deg); } 75% { transform: translateX(0.5cqw) rotate(1deg); } }
         #cat-food-icon { width: 100%; cursor: pointer; filter: drop-shadow(4px 10px 8px rgba(0,0,0,0.6)); }
-        #cat-container { position: absolute; left: 120px; pointer-events: auto; z-index: 21; width: 150px; height: 150px; bottom: -15px; }
-        #cat-bubble { position: absolute; top: 30px; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.9); padding: 2px 6px; border-radius: 8px; font-size: 10px; font-weight: bold; color: #333; opacity: 0; transition: opacity 0.3s; z-index: 100; }
+        #cat-container { position: absolute; left: 26cqw; pointer-events: auto; z-index: 21; width: 33cqw; height: 33cqw; bottom: -3cqw; }
+        #cat-bubble { position: absolute; top: 6cqw; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.9); padding: 0.5cqw 1.5cqw; border-radius: 6px; font-size: 2.2cqw; font-weight: bold; color: #333; opacity: 0; transition: opacity 0.3s; z-index: 100; white-space: nowrap; }
         .cat-vid { width: 100%; height: 100%; object-fit: contain; }
         #grass-layer { position: absolute; bottom: 0; left: 0; width: 100%; pointer-events: none; z-index: 30; display: flex; align-items: flex-end; }
-        #grass-image { width: 100%; height: auto; margin-bottom: -5px; }
+        #grass-image { width: 100%; height: auto; margin-bottom: -1cqw; }
 
         /* --- 6. MODAL SYSTEM --- */
         #modal { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; }
@@ -85,23 +85,11 @@
         #m-body::-webkit-scrollbar { width: 4px; }
         #m-body::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 10px; }
 
-        /* Style Lapis untuk IG & Foto Profil */
         .tentang-wrapper { position: relative; width: 100%; max-width: 450px; margin: 0 auto; text-align: center; overflow: hidden; }
         .overlay-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
-        .ig-pria, .ig-wanita, .foto-pria, .foto-wanita { position: absolute; }
-        
-        .ig-pria, .ig-wanita { text-decoration: none; font-size: 3.6vw; font-weight: 800; color: #d4af37; pointer-events: auto; white-space: nowrap; animation: igPulse 2s infinite ease-in-out; }
-        
-        @keyframes igPulse {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0px rgba(212,175,55,0)); }
-            50% { transform: scale(1.06); filter: drop-shadow(0 0 4px rgba(212,175,55,0.6)); }
-        }
-
-        .foto-pria, .foto-wanita { object-fit: contain; pointer-events: none; }
-
-        @media (min-width: 450px) {
-            .ig-pria, .ig-wanita { font-size: 16px; }
-        }
+        .ig-pria, .ig-wanita { position: absolute; text-decoration: none; font-size: 3.6vw; font-weight: 800; color: #d4af37; pointer-events: auto; white-space: nowrap; animation: igPulse 2s infinite ease-in-out; }
+        @keyframes igPulse { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0px rgba(212,175,55,0)); } 50% { transform: scale(1.06); filter: drop-shadow(0 0 4px rgba(212,175,55,0.6)); } }
+        @media (min-width: 450px) { .ig-pria, .ig-wanita { font-size: 16px; } }
 
         /* --- KOLOM UCAPAN & KOMENTAR --- */
         .form-ucapan { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; background: #f9f9f9; padding: 12px; border-radius: 10px; border: 1px solid #eee; }
@@ -113,7 +101,6 @@
         .area-komentar { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; max-height: 280px; overflow-y: auto; padding-right: 4px; }
         .area-komentar::-webkit-scrollbar { width: 3px; }
         .area-komentar::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
-        
         .box-komentar { background: #f4f4f4; padding: 10px; border-radius: 8px; border-left: 4px solid #d4af37; text-align: left; }
         .box-komentar.pinned { background: #fffcf2; border-left: 4px solid #8a9549; box-shadow: inset 0 0 4px rgba(212,175,55,0.1); }
         .nama-komentator { font-size: 12px; font-weight: bold; color: #333; margin-bottom: 3px; display: flex; align-items: center; gap: 5px; }
@@ -123,38 +110,27 @@
         /* --- RANGKAIAN ACARA & COUNTDOWN --- */
         .acara-container { display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; margin-top: 10px; }
         .info-lokasi-waktu { font-size: 14px; color: #444; font-weight: 600; margin-bottom: 15px; line-height: 1.5; }
-        
-        /* STYLE FLIP CLOCK COUNTDOWN */
         .countdown-box-wrapper { display: flex; gap: 12px; justify-content: center; margin-bottom: 25px; }
         .flip-segment { display: flex; flex-direction: column; align-items: center; }
         .flip-card-container { display: flex; gap: 2px; }
-        .flip-card {
-            position: relative; background: #414528; color: #fff; width: 32px; height: 46px;
-            font-size: 26px; font-weight: 700; text-align: center; line-height: 46px;
-            border-radius: 4px; box-shadow: 0 3px 6px rgba(120, 120, 120, 0.3); overflow: hidden;
-        }
+        .flip-card { position: relative; background: #414528; color: #fff; width: 32px; height: 46px; font-size: 26px; font-weight: 700; text-align: center; line-height: 46px; border-radius: 4px; box-shadow: 0 3px 6px rgba(120, 120, 120, 0.3); overflow: hidden; }
         .flip-card::after { content: ''; position: absolute; left: 0; top: 50%; width: 100%; height: 1px; background: rgba(255, 255, 255, 0.15); z-index: 5; }
         .flip-label { font-size: 10px; color: #777; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 6px; font-weight: bold; }
 
         .custom-img-container { width: 100%; display: flex; justify-content: center; margin-bottom: 15px; }
         .custom-img-container img { width: 100%; height: auto; max-width: 450px; display: block; object-fit: cover; }
-
         .maps-img-container { width: 100%; display: flex; flex-direction: column; align-items: center; margin-bottom: 15px; }
-        .maps-img-container a { display: block; width: 100%; max-width: 450px; cursor: pointer; transition: transform 0.2s; }
-        .maps-img-container a:hover { transform: scale(1.02); }
-        .maps-img-container img { width: 100%; height: auto; display: block; object-fit: cover; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.12)); }
+        .maps-img-container a { display: block; width: 100%; max-width: 450px; cursor: pointer; }
+        .maps-img-container img { width: 100%; height: auto; display: block; object-fit: cover; }
 
-        /* --- LIGHTBOX --- */
         #lightbox { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,0.9); display: none; align-items: center; justify-content: center; cursor: pointer; }
         #lightbox img { max-width: 90%; max-height: 80%; }
-
         .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
     <div class="app-container">
-
         <div id="overlay-awal">
             <button class="btn-buka" onclick="bukaUndangan()">Mulai</button>
         </div>
@@ -189,7 +165,6 @@
                 <div id="grass-layer"><img src="rumput.png" id="grass-image"></div>
             </div>
         </div>
-
     </div>
 
     <div id="modal" onclick="tutup()">
@@ -278,18 +253,11 @@
         function simpanUcapan() {
             const nama = document.getElementById('input-nama').value.trim();
             const teks = document.getElementById('input-teks').value.trim();
-            
-            if(!nama || !teks) {
-                alert("Harap isi nama dan ucapan doa restu Anda.");
-                return;
-            }
-
+            if(!nama || !teks) { alert("Harap isi nama dan ucapan doa restu Anda."); return; }
             let dataLama = localStorage.getItem('undangan_ucapan');
             let listUcapan = dataLama ? JSON.parse(dataLama) : [];
-
             listUcapan.unshift({ nama: nama, teks: teks }); 
             localStorage.setItem('undangan_ucapan', JSON.stringify(listUcapan));
-
             document.getElementById('input-nama').value = '';
             document.getElementById('input-teks').value = '';
             tampilkanUcapan();
@@ -298,17 +266,14 @@
         function tampilkanUcapan() {
             const container = document.getElementById('box-list-ucapan');
             if(!container) return;
-
             let dataLama = localStorage.getItem('undangan_ucapan');
             let listUcapan = dataLama ? JSON.parse(dataLama) : [];
-
             let htmlKomentar = `
                 <div class="box-komentar pinned">
                     <div class="nama-komentator">Latifa & Ilmi <span class="badge-owner">Mempelai</span></div>
                     <div class="isi-komentator">Terima kasih ucapan & doa nya, ditunggu kehadiran saudara/i semua🤍</div>
                 </div>
             `;
-
             listUcapan.forEach(item => {
                 htmlKomentar += `
                     <div class="box-komentar">
@@ -322,36 +287,24 @@
 
         function runCountdown() {
             const targetDate = new Date("June 14, 2026 00:00:00").getTime();
-            
             clearInterval(countdownInterval);
             countdownInterval = setInterval(() => {
                 const now = new Date().getTime();
                 const distance = targetDate - now;
-
                 let days = Math.floor(distance / (1000 * 60 * 60 * 24));
                 let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                if (distance < 0) {
-                    clearInterval(countdownInterval);
-                    days = hours = minutes = seconds = 0;
-                }
-
+                if (distance < 0) { clearInterval(countdownInterval); days = hours = minutes = seconds = 0; }
                 const dStr = String(days).padStart(2, '0');
                 const hStr = String(hours).padStart(2, '0');
                 const mStr = String(minutes).padStart(2, '0');
                 const sStr = String(seconds).padStart(2, '0');
-
                 if (document.getElementById("d1")) {
-                    document.getElementById("d1").innerText = dStr[0];
-                    document.getElementById("d2").innerText = dStr[1];
-                    document.getElementById("h1").innerText = hStr[0];
-                    document.getElementById("h2").innerText = hStr[1];
-                    document.getElementById("m1").innerText = mStr[0];
-                    document.getElementById("m2").innerText = mStr[1];
-                    document.getElementById("s1").innerText = sStr[0];
-                    document.getElementById("s2").innerText = sStr[1];
+                    document.getElementById("d1").innerText = dStr[0]; document.getElementById("d2").innerText = dStr[1];
+                    document.getElementById("h1").innerText = hStr[0]; document.getElementById("h2").innerText = hStr[1];
+                    document.getElementById("m1").innerText = mStr[0]; document.getElementById("m2").innerText = mStr[1];
+                    document.getElementById("s1").innerText = sStr[0]; document.getElementById("s2").innerText = sStr[1];
                 }
             }, 1000);
         }
@@ -360,7 +313,6 @@
             const mTitle = document.getElementById('m-title');
             const mBody = document.getElementById('m-body');
             mTitle.innerText = judul; 
-            
             if (isTentang) {
                 mBody.innerHTML = `
                     <div class="tentang-wrapper">
@@ -372,85 +324,40 @@
                     </div>
                 `;
             } else if (judul === 'Love Story') {
-                mBody.innerHTML = `
-                    <div style="width: 100%; height: auto; display: flex; justify-content: center; align-items: center;">
-                        <img src="story.png" style="width: 100%; height: auto; border-radius: 4px; display: block;">
-                    </div>
-                `;
+                mBody.innerHTML = `<div style="width: 100%; height: auto; display: flex; justify-content: center;"><img src="story.png" style="width: 100%; height: auto; border-radius: 4px;"></div>`;
             } else if (judul === 'Ucapan & Doa') {
-                mBody.innerHTML = `
-                    <div class="form-ucapan">
-                        <input type="text" id="input-nama" placeholder="Nama Anda" maxlength="40">
-                        <textarea id="input-teks" placeholder="Tuliskan ucapan doa restu Anda..." rows="3" maxlength="300"></textarea>
-                        <button class="btn-kirim-ucapan" onclick="simpanUcapan()">Kirim Ucapan</button>
-                    </div>
-                    <div class="area-komentar" id="box-list-ucapan"></div>
-                `;
+                mBody.innerHTML = `<div class="form-ucapan"><input type="text" id="input-nama" placeholder="Nama Anda" maxlength="40"><textarea id="input-teks" placeholder="Tuliskan ucapan doa restu Anda..." rows="3" maxlength="300"></textarea><button class="btn-kirim-ucapan" onclick="simpanUcapan()">Kirim Ucapan</button></div><div class="area-komentar" id="box-list-ucapan"></div>`;
                 tampilkanUcapan();
             } else if (judul === 'Rangkaian Acara') {
-                mBody.innerHTML = `
-                    <div class="custom-img-container" style="margin-top: 10px;">
-                        <img src="rangkai.png" style="width: 100%; height: auto; border-radius: 4px; display: block;">
-                    </div>
-                `;
+                mBody.innerHTML = `<div class="custom-img-container" style="margin-top: 10px;"><img src="rangkai.png" style="width: 100%; height: auto; border-radius: 4px;"></div>`;
             } else if (judul === 'Waktu & Tempat') {
-                mBody.innerHTML = `
-                    <div class="acara-container">
-                        <div class="countdown-box-wrapper">
-                            <div class="flip-segment">
-                                <div class="flip-card-container"><div id="d1" class="flip-card">0</div><div id="d2" class="flip-card">0</div></div>
-                                <span class="flip-label">Hari</span>
-                            </div>
-                            <div class="flip-segment">
-                                <div class="flip-card-container"><div id="h1" class="flip-card">0</div><div id="h2" class="flip-card">0</div></div>
-                                <span class="flip-label">Jam</span>
-                            </div>
-                            <div class="flip-segment">
-                                <div class="flip-card-container"><div id="m1" class="flip-card">0</div><div id="m2" class="flip-card">0</div></div>
-                                <span class="flip-label">Menit</span>
-                            </div>
-                            <div class="flip-segment">
-                                <div class="flip-card-container"><div id="s1" class="flip-card">0</div><div id="s2" class="flip-card">0</div></div>
-                                <span class="flip-label">Detik</span>
-                            </div>
-                        </div>
-                        <div class="custom-img-container"><img src="waktu.png"></div>
-                        <div class="maps-img-container">
-                            <p style="font-size: 14px; font-weight: bold; color: #414528; margin-bottom: 8px;">Google Maps Lokasi</p>
-                            <a href="https://g.co/kgs/4M9iUc" target="_blank"><img src="maps.png"></a>
-                        </div>
-                    </div>
-                `;
+                mBody.innerHTML = `<div class="acara-container"><div class="countdown-box-wrapper"><div class="flip-segment"><div class="flip-card-container"><div id="d1" class="flip-card">0</div><div id="d2" class="flip-card">0</div></div><span class="flip-label">Hari</span></div><div class="flip-segment"><div class="flip-card-container"><div id="h1" class="flip-card">0</div><div id="h2" class="flip-card">0</div></div><span class="flip-label">Jam</span></div><div class="flip-segment"><div class="flip-card-container"><div id="m1" class="flip-card">0</div><div id="m2" class="flip-card">0</div></div><span class="flip-label">Menit</span></div><div class="flip-segment"><div class="flip-card-container"><div id="s1" class="flip-card">0</div><div id="s2" class="flip-card">0</div></div><span class="flip-label">Detik</span></div></div><div class="custom-img-container"><img src="waktu.png"></div><div class="maps-img-container"><p style="font-size: 14px; font-weight: bold; color: #414528; margin-bottom: 8px;">Google Maps Lokasi</p><a href="https://g.co/kgs/4M9iUc" target="_blank"><img src="maps.png"></a></div></div>`;
                 runCountdown(); 
             } else if (judul === 'Galeri') {
-                mBody.innerHTML = `
-                    <div class="galeri-scroll-container" style="display: flex; flex-direction: column; width: 100%; padding-bottom: 10px; gap: 8px;">
-                        <img src="1.png" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                        <img src="2.png" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                        <img src="3.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                        <img src="4.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                        <img src="5.png" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                        <img src="6.png" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                        <img src="7.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                        <img src="8.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                        <img src="9.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                        <img src="10.png" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                        <img src="11.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                        <img src="12.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                        <img src="13.png" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                        <img src="14.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                        <img src="15.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                        <img src="16.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                        <img src="17.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                        <img src="18.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                    </div>
-                `;
+                mBody.innerHTML = `<div class="galeri-scroll-container" style="display: flex; flex-direction: column; width: 100%; padding-bottom: 10px; gap: 8px;">
+                    <img src="1.png" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
+                    <img src="2.png" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
+                    <img src="3.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
+                    <img src="4.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
+                    <img src="5.png" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
+                    <img src="6.png" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
+                    <img src="7.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
+                    <img src="8.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
+                    <img src="9.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
+                    <img src="10.png" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
+                    <img src="11.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
+                    <img src="12.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
+                    <img src="13.png" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
+                    <img src="14.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
+                    <img src="15.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
+                    <img src="16.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
+                    <img src="17.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
+                    <img src="18.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
+                </div>`;
             }
-
             document.getElementById('modal').style.display = 'flex';
             if (suaraAktif) { suaraAktif.pause(); suaraAktif.currentTime = 0; }
-            suaraAktif = document.getElementById(idSuara);
-            setBgmVolume(0.1); 
+            suaraAktif = document.getElementById(idSuara); setBgmVolume(0.1); 
             setTimeout(() => { if(document.getElementById('modal').style.display === 'flex') { suaraAktif.play(); } }, 600); 
             suaraAktif.onended = () => { setBgmVolume(0.5); };
         }
@@ -458,8 +365,7 @@
         function tutup() {
             document.getElementById('modal').style.display = 'none';
             if (suaraAktif) { suaraAktif.pause(); suaraAktif.currentTime = 0; }
-            clearInterval(countdownInterval); 
-            setBgmVolume(0.5); 
+            clearInterval(countdownInterval); setBgmVolume(0.5); 
         }
 
         function startPatrol() {
@@ -467,11 +373,11 @@
             bubble.innerText = "meow meow"; bubble.style.opacity = "1";
             walkL.classList.add('hidden'); walkR.classList.remove('hidden'); walkR.play();
             catBox.style.transition = "left 6s linear, bottom 0.5s ease";
-            catBox.style.left = "calc(110% - 150px)"; 
+            catBox.style.left = "calc(110% - 33cqw)"; 
             setTimeout(() => {
                 if (window.isEating) return;
                 walkR.classList.add('hidden'); walkL.classList.remove('hidden'); walkL.play();
-                catBox.style.left = "110px"; 
+                catBox.style.left = "26cqw"; 
                 setTimeout(() => { if (!window.isEating) startPatrol(); }, 7000);
             }, 7000);
         }
@@ -482,16 +388,16 @@
             foodWrapper.classList.remove('pulse-active');
             bubble.innerText = "Terima kasih, meow!"; bubble.style.opacity = "1";
             catBox.style.transition = "left 3s ease-out, bottom 3s ease-out"; 
-            catBox.style.left = "15px"; catBox.style.bottom = "44px"; 
+            catBox.style.left = "3cqw"; catBox.style.bottom = "8cqw"; 
             walkR.classList.add('hidden'); walkL.classList.remove('hidden'); walkL.play();
             setTimeout(() => {
                 walkL.classList.add('hidden'); eatV.classList.remove('hidden'); eatV.play();
-                catBox.style.transition = "none"; catBox.style.width = "73px"; 
+                catBox.style.transition = "none"; catBox.style.width = "16cqw"; 
                 setTimeout(() => {
                     eatV.classList.add('hidden'); bubble.style.opacity = "0";
                     window.isEating = false; foodWrapper.classList.add('pulse-active');
                     catBox.style.transition = "bottom 0.5s ease, width 0.5s ease";
-                    catBox.style.bottom = "-15px"; catBox.style.width = "150px"; 
+                    catBox.style.bottom = "-3cqw"; catBox.style.width = "33cqw"; 
                     startPatrol();
                 }, 5000);
             }, 3000); 
