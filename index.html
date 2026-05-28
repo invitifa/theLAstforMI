@@ -125,7 +125,8 @@
             bottom: -4%; 
         }
         #cat-bubble { position: absolute; top:15%; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.9); padding: 1.6px 5px; border-radius: 8px; font-size: 8px; font-weight: bold; color: #333; opacity: 0; transition: opacity 0.3s; z-index: 100; white-space: nowrap; }
-        .cat-vid { width: 100%; height: 100%; object-fit: contain; }
+        .cat-vid { width: 100%; height: 100%; object-fit: contain; transition: opacity 0.5s ease; }
+
         
         #grass-layer { position: absolute; bottom: 0; left: 0; width: 100%; pointer-events: none; z-index: 30; display: flex; align-items: flex-end; }
         #grass-image { width: 100%; height: auto; }
@@ -698,25 +699,33 @@
             }, 7000);
         }
 
-        function panggilKucing() {
+                function panggilKucing() {
             if (window.isEating) return;
             window.isEating = true;
             foodWrapper.classList.remove('pulse-active');
             bubble.innerText = "Terima kasih, meow!"; bubble.style.opacity = "1";
+            
+            // Ganti transisi agar lebih halus
             catBox.style.transition = "left 3s ease-out, bottom 3s ease-out"; 
             catBox.style.left = "3.3%"; 
             catBox.style.bottom = "18.5%"; 
             walkR.classList.add('hidden'); walkL.classList.remove('hidden'); walkL.play();
+            
             setTimeout(() => {
                 walkL.classList.add('hidden'); eatV.classList.remove('hidden'); eatV.play();
-                catBox.style.transition = "none"; 
-                catBox.style.width = "33.3%"; 
+                
+                // HAPUS atau KOMENTARI baris di bawah ini:
+                // catBox.style.transition = "none"; 
+                
                 setTimeout(() => {
                     eatV.classList.add('hidden'); bubble.style.opacity = "0";
                     window.isEating = false; foodWrapper.classList.add('pulse-active');
-                    catBox.style.transition = "bottom 0.5s ease, width 0.5s ease";
+                    
+                    // Pastikan transisi aktif saat kembali ke posisi patroli
+                    catBox.style.transition = "left 3s ease, bottom 0.5s ease";
                     catBox.style.bottom = "-4%"; 
-                    catBox.style.width = "33.3%"; 
+                    catBox.style.left = "26.6%"; 
+                    
                     startPatrol();
                 }, 5000);
             }, 3000); 
