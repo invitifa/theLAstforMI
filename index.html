@@ -40,10 +40,10 @@
 
         .btn-buka {
             position: absolute;
-            bottom: 44%; 
+            bottom: 35%; 
             left: 50%;
             transform: translateX(-50%);
-            padding: 1.25vh 6.5vw; border: 2px solid rgba(255,255,255,0.5); border-radius: 12px;
+            padding: 10px 30px; border: 2px solid rgba(255,255,255,0.5); border-radius: 12px;
             background: #c18f30; color: white; cursor: pointer; font-weight: 800;
             text-transform: uppercase; letter-spacing: 3px; font-size: 16px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.4); transition: all 0.3s ease;
@@ -69,33 +69,32 @@
         #bg-container { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
         .bg-media { width: 100%; height: 100%; object-fit: cover; position: absolute; transition: opacity 1.5s; opacity: 0; }
 
-        /* --- 4. IKON MENU (RESPONSIF BERBASIS PERSEN) --- */
+        /* --- 4. IKON MENU --- */
         #main-content { position: absolute; inset: 0; z-index: 10; opacity: 0; transition: opacity 2s ease-in-out; pointer-events: none; }
-        #hint-text { position: absolute; top: 25%; left: 50%; transform: translateX(-50%); color: #8a9549; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-shadow: 0 0 10px rgba(0,0,0,0.5); animation: softFlicker 3s infinite ease-in-out; pointer-events: none; text-align: center; width: 100%; }
+        #hint-text { position: absolute; top: 25%; left: 50%; transform: translateX(-50%); color: #8a9549; font-size: 13px; font-weight: 700; letter-spacing: 1px; text-shadow: 0 0 10px rgba(0,0,0,0.5); animation: softFlicker 3s infinite ease-in-out; pointer-events: none; text-align: center; width: 100%; }
         @keyframes softFlicker { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
         
         .icon-item { position: absolute; height: auto; cursor: pointer; pointer-events: auto; animation: floatWobble 6s ease-in-out infinite; }
         .icon-item img { width: 100%; height: auto; display: block; filter: drop-shadow(4px 6px 10px rgba(0, 0, 0, 0.4)); transition: transform 0.3s ease; }
-        @keyframes floatWobble { 0%, 100% { transform: translateY(0) rotate(0deg); } 25% { transform: translateY(-1vh) rotate(1deg); } 50% { transform: translateY(-0.5vh) rotate(-1deg); } 75% { transform: translateY(-1.25vh) rotate(0.5deg); } }
+        @keyframes floatWobble { 0%, 100% { transform: translateY(0) rotate(0deg); } 25% { transform: translateY(-8px) rotate(1deg); } 50% { transform: translateY(-4px) rotate(-1deg); } 75% { transform: translateY(-10px) rotate(0.5deg); } }
         
-        /* Konversi lebar ikon statis px ke % terhadap kontainer utama 450px */
-        .icon-1 { width: 25.5%; top: 35%; left: 6.5%; }
-        .icon-2 { width: 26.6%; top: 46%; left: 43.2%; }
-        .icon-3 { width: 29.3%; top: 41%; left: 67%; }
-        .icon-4 { width: 22.2%; top: 59%; left: 54.5%; }
-        .icon-5 { width: 31.1%; top: 72%; left: 43%; }
-        .icon-6 { width: 44.4%; top: 54%; left: 4%; }
+        .icon-1 { width: 115px; top: 35%; left: 5%; }
+        .icon-2 { width: 120px; top: 48%; left: 45%; }
+        .icon-3 { width: 132px; top: 42%; left: 67.5%; }
+        .icon-4 { width: 100px; top: 59.5%; left: 54.5%; }
+        .icon-5 { width: 145px; top: 71%; left: 43%; }
+        .icon-6 { width: 215px; top: 55%; left: 0%; }
 
-        /* --- 5. KUCING, MAKANAN, RUMPUT (RESPONSIF BERBASIS PERSEN) --- */
+        /* --- 5. KUCING, MAKANAN, RUMPUT (MENGGUNAKAN PERSEN RESPONSIF) --- */
         #cat-area { position: absolute; bottom: 0; left: 0; width: 100%; height: 32.5%; z-index: 20; pointer-events: none; }
         
         #food-wrapper { 
             position: absolute; 
             pointer-events: auto; 
             z-index: 50; 
-            width: 20%; /* Fleksibel mengikuti lebar HP */
+            width: 20%; /* Proporsional dari lebar kontainer */
             left: 5.3%; 
-            bottom: 7%; /* Menggunakan persen agar turunnya seimbang */
+            bottom: 2.25%; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
@@ -109,12 +108,11 @@
             left: 26.6%; 
             pointer-events: auto; 
             z-index: 21; 
-            width: 33.3%; /* Fleksibel mengikuti ukuran HP kecil */
-            height: auto;
-            aspect-ratio: 1 / 1;
-            bottom: -4%; 
+            width: 33.3%; /* Setara 150px dari bingkai 450px */
+            aspect-ratio: 1 / 1; 
+            bottom: -1.37%; /* Setara amblas -11px dari bingkai 800px */
         }
-        #cat-bubble { position: absolute; top: 8%; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.9); padding: 2px 6px; border-radius: 8px; font-size: 10px; font-weight: bold; color: #333; opacity: 0; transition: opacity 0.3s; z-index: 100; white-space: nowrap; }
+        #cat-bubble { position: absolute; top: 6.6%; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.9); padding: 2px 6px; border-radius: 8px; font-size: 10px; font-weight: bold; color: #333; opacity: 0; transition: opacity 0.3s; z-index: 100; white-space: nowrap; }
         .cat-vid { width: 100%; height: 100%; object-fit: contain; }
         
         #grass-layer { position: absolute; bottom: 0; left: 0; width: 100%; pointer-events: none; z-index: 30; display: flex; align-items: flex-end; }
@@ -518,7 +516,7 @@
             bubble.innerText = "meow meow"; bubble.style.opacity = "1";
             walkL.classList.add('hidden'); walkR.classList.remove('hidden'); walkR.play();
             catBox.style.transition = "left 6s linear, bottom 0.5s ease";
-            catBox.style.left = "calc(110% - 33.3%)"; /* Menggunakan kalkulasi persen responsif */
+            catBox.style.left = "calc(110% - 33.3%)"; 
             setTimeout(() => {
                 if (window.isEating) return;
                 walkR.classList.add('hidden'); walkL.classList.remove('hidden'); walkL.play();
@@ -533,19 +531,27 @@
             foodWrapper.classList.remove('pulse-active');
             bubble.innerText = "Terima kasih, meow!"; bubble.style.opacity = "1";
             catBox.style.transition = "left 3s ease-out, bottom 3s ease-out"; 
-            catBox.style.left = "3.3%"; /* Menyesuaikan posisi makan secara responsif */
-            catBox.style.bottom = "18.5%"; /* Menyeimbangkan posisi makan saat wadah makanan menggunakan sistem persen */
+            
+            // Perjalanan menuju mangkok makan menggunakan koordinat persen responsif
+            catBox.style.left = "3.3%"; 
+            catBox.style.bottom = "8.5%"; 
+            
             walkR.classList.add('hidden'); walkL.classList.remove('hidden'); walkL.play();
             setTimeout(() => {
                 walkL.classList.add('hidden'); eatV.classList.remove('hidden'); eatV.play();
                 catBox.style.transition = "none"; 
-                // Mengubah ukuran lebar kotak kucing saat makan menggunakan sistem persen (setara dengan 73px dari 450px)
-                catBox.style.width = "25%"; 
+                
+                // UKURAN DAN POSISI SAAT MAKAN (DIPERBAIKI)
+                catBox.style.width = "26%";    /* Skala pas: setara ~117px biar ga kekecilan */
+                catBox.style.bottom = "8.5%";  /* Posisi tinggi presisi di depan wadah makan */
+                
                 setTimeout(() => {
                     eatV.classList.add('hidden'); bubble.style.opacity = "0";
                     window.isEating = false; foodWrapper.classList.add('pulse-active');
                     catBox.style.transition = "bottom 0.5s ease, width 0.5s ease";
-                    catBox.style.bottom = "15%"; 
+                    
+                    // Kembalikan ke keadaan semula (Amblas di balik rumput & ukuran patroli)
+                    catBox.style.bottom = "-1.37%"; 
                     catBox.style.width = "33.3%"; 
                     startPatrol();
                 }, 5000);
