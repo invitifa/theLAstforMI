@@ -6,32 +6,41 @@
     <title>Undangan Digital Eksklusif</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body, html { height: 100%; overflow: hidden; background: #000; display: flex; justify-content: center; align-items: center; }
+        
+        /* --- BACKGROUND SISA LAYAR HP MENJADI PUTIH BERSIH --- */
+        body, html { 
+            height: 100%; 
+            width: 100%;
+            overflow: hidden; 
+            background: #ffffff; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+        }
 
-        /* --- BINGKAI UTAMA: Mengunci ukuran dan rasio di semua jenis HP --- */
+        /* --- BINGKAI UTAMA: Mengunci ukuran dan rasio murni 9:16 di semua jenis HP --- */
         .app-container {
             position: relative;
-            width: 100vw;
-            /* Tinggi dihitung mutlak berdasarkan proporsi standar agar rasio icon tetap konstan */
-            height: calc(100vw * (19.5 / 9)); 
+            width: 100%;
             max-width: 450px; 
-            max-height: 975px; 
+            max-height: 800px; 
+            aspect-ratio: 9 / 16;
             overflow: hidden;
             background: #000;
-            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            box-shadow: 0 0 30px rgba(0,0,0,0.2);
             flex-shrink: 0;
         }
 
         /* --- 1. OVERLAY AWAL --- */
         #overlay-awal {
             position: absolute; inset: 0; z-index: 100;
-            background: url('awal.png') center/100% 100% no-repeat;
+            background: url('awal.png') center/cover no-repeat;
             display: block; transition: opacity 1s ease;
         }
 
         .btn-buka {
             position: absolute;
-            bottom: 35%; /* Mengunci posisi tombol dihitung dari bawah container utama */
+            bottom: 44%; 
             left: 50%;
             transform: translateX(-50%);
             padding: 10px 30px; border: 2px solid rgba(255,255,255,0.5); border-radius: 12px;
@@ -43,9 +52,16 @@
 
         /* --- 2. SISTEM GERBANG --- */
         #gate-container { position: absolute; inset: 0; z-index: 50; display: flex; overflow: hidden; cursor: pointer; perspective: 1200px; }
-        .gate { width: 50%; height: 100%; transition: transform 3s cubic-bezier(0.4, 0, 0.2, 1), opacity 3s; background-image: url('gerbang.png'); background-size: 200% 100%; background-repeat: no-repeat; backface-visibility: hidden; }
-        .gate-left { background-position: 0% center; transform-origin: left; }
-        .gate-right { background-position: 100% center; transform-origin: right; }
+        .gate { 
+            width: 50%; height: 100%; 
+            transition: transform 3s cubic-bezier(0.4, 0, 0.2, 1), opacity 3s; 
+            background-image: url('gerbang.png'); 
+            background-size: 200% 100%; 
+            background-repeat: no-repeat; 
+            backface-visibility: hidden; 
+        }
+        .gate-left { background-position: left center; transform-origin: left; }
+        .gate-right { background-position: right center; transform-origin: right; }
         .gate-open .gate-left { transform: rotateY(-110deg); opacity: 0; }
         .gate-open .gate-right { transform: rotateY(110deg); opacity: 0; }
 
@@ -55,32 +71,52 @@
 
         /* --- 4. IKON MENU --- */
         #main-content { position: absolute; inset: 0; z-index: 10; opacity: 0; transition: opacity 2s ease-in-out; pointer-events: none; }
-        #hint-text { position: absolute; top: 25%; left: 50%; transform: translateX(-50%); color: #8a9549; font-size: 13px; font-weight: 700; letter-spacing: 1px; text-shadow: 0 0 10px rgba(0,0,0,0.5); animation: softFlicker 3s infinite ease-in-out; pointer-events: none; text-align: center; width: 100%; }
+        #hint-text { position: absolute; top: 25%; left: 50%; transform: translateX(-50%); color: #8a9549; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-shadow: 0 0 10px rgba(0,0,0,0.5); animation: softFlicker 3s infinite ease-in-out; pointer-events: none; text-align: center; width: 100%; }
         @keyframes softFlicker { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
         
         .icon-item { position: absolute; height: auto; cursor: pointer; pointer-events: auto; animation: floatWobble 6s ease-in-out infinite; }
         .icon-item img { width: 100%; height: auto; display: block; filter: drop-shadow(4px 6px 10px rgba(0, 0, 0, 0.4)); transition: transform 0.3s ease; }
         @keyframes floatWobble { 0%, 100% { transform: translateY(0) rotate(0deg); } 25% { transform: translateY(-8px) rotate(1deg); } 50% { transform: translateY(-4px) rotate(-1deg); } 75% { transform: translateY(-10px) rotate(0.5deg); } }
         
-        /* Ukuran PX dan Koordinat Persen Asli */
-        .icon-1 { width: 115px; top: 35%; left: 5%; }
-        .icon-2 { width: 120px; top: 48%; left: 45%; }
-        .icon-3 { width: 132px; top: 42%; left: 67.5%; }
-        .icon-4 { width: 100px; top: 59.5%; left: 54.5%; }
-        .icon-5 { width: 145px; top: 71%; left: 43%; }
-        .icon-6 { width: 215px; top: 55%; left: 0%; }
+        .icon-1 { width: 115px; top: 35%; left: 6.5%; }
+        .icon-2 { width: 120px; top: 46%; left: 43.2%; }
+        .icon-3 { width: 132px; top: 41%; left: 67%; }
+        .icon-4 { width: 100px; top: 59%; left: 54.5%; }
+        .icon-5 { width: 140px; top: 72%; left: 43%; }
+        .icon-6 { width: 200px; top: 54%; left: 4%; }
 
-        /* --- 5. KUCING --- */
-        #cat-area { position: absolute; bottom: 0; left: 0; width: 100%; height: 200px; z-index: 20; pointer-events: none; }
-        #food-wrapper { position: absolute; pointer-events: auto; z-index: 50; width: 90px; left: 24px; bottom: 14px; display: flex; flex-direction: column; align-items: center; }
+        /* --- 5. KUCING, MAKANAN, RUMPUT (POSISI DITURUNKAN LAGI) --- */
+        #cat-area { position: absolute; bottom: 0; left: 0; width: 100%; height: 260px; z-index: 20; pointer-events: none; }
+        
+        #food-wrapper { 
+            position: absolute; 
+            pointer-events: auto; 
+            z-index: 50; 
+            width: 90px; 
+            left: 24px; 
+            bottom: 18px; /* Diturunkan lebih bawah lagi dari 27px */
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+        }
         .pulse-active { animation: bowlShake 0.8s infinite ease-in-out; }
         @keyframes bowlShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-1.5px) rotate(-1deg); } 75% { transform: translateX(1.5px) rotate(1deg); } }
         #cat-food-icon { width: 100%; cursor: pointer; filter: drop-shadow(4px 10px 8px rgba(0,0,0,0.6)); }
-        #cat-container { position: absolute; left: 120px; pointer-events: auto; z-index: 21; width: 150px; height: 150px; bottom: -15px; }
-        #cat-bubble { position: absolute; top: 30px; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.9); padding: 2px 6px; border-radius: 8px; font-size: 10px; font-weight: bold; color: #333; opacity: 0; transition: opacity 0.3s; z-index: 100; }
+        
+        #cat-container { 
+            position: absolute; 
+            left: 120px; 
+            pointer-events: auto; 
+            z-index: 21; 
+            width: 150px; 
+            height: 150px; 
+            bottom: -11px; /* Diturunkan lebih amblas ke balik rumput dari -3px */
+        }
+        #cat-bubble { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.9); padding: 2px 6px; border-radius: 8px; font-size: 10px; font-weight: bold; color: #333; opacity: 0; transition: opacity 0.3s; z-index: 100; }
         .cat-vid { width: 100%; height: 100%; object-fit: contain; }
+        
         #grass-layer { position: absolute; bottom: 0; left: 0; width: 100%; pointer-events: none; z-index: 30; display: flex; align-items: flex-end; }
-        #grass-image { width: 100%; height: auto; margin-bottom: -5px; }
+        #grass-image { width: 100%; height: auto; }
 
         /* --- 6. MODAL SYSTEM --- */
         #modal { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; }
@@ -313,7 +349,7 @@
 
                 let days = Math.floor(distance / (1000 * 60 * 60 * 24));
                 let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60 * 60));
                 let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
                 if (distance < 0) {
@@ -495,7 +531,8 @@
             foodWrapper.classList.remove('pulse-active');
             bubble.innerText = "Terima kasih, meow!"; bubble.style.opacity = "1";
             catBox.style.transition = "left 3s ease-out, bottom 3s ease-out"; 
-            catBox.style.left = "15px"; catBox.style.bottom = "44px"; 
+            catBox.style.left = "15px"; 
+            catBox.style.bottom = "47px"; /* Menyeimbangkan posisi makan saat wadah makanan diturunkan */
             walkR.classList.add('hidden'); walkL.classList.remove('hidden'); walkL.play();
             setTimeout(() => {
                 walkL.classList.add('hidden'); eatV.classList.remove('hidden'); eatV.play();
@@ -504,7 +541,8 @@
                     eatV.classList.add('hidden'); bubble.style.opacity = "0";
                     window.isEating = false; foodWrapper.classList.add('pulse-active');
                     catBox.style.transition = "bottom 0.5s ease, width 0.5s ease";
-                    catBox.style.bottom = "-15px"; catBox.style.width = "150px"; 
+                    catBox.style.bottom = "-11px"; 
+                    catBox.style.width = "150px"; 
                     startPatrol();
                 }, 5000);
             }, 3000); 
