@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Digital Invitation</title>
+    <title>Undangan Digital Eksklusif</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         
@@ -78,12 +78,13 @@
         .icon-item img { width: 100%; height: auto; display: block; filter: drop-shadow(4px 6px 10px rgba(0, 0, 0, 0.4)); transition: transform 0.3s ease; }
         @keyframes floatWobble { 0%, 100% { transform: translateY(0) rotate(0deg); } 25% { transform: translateY(-1vh) rotate(1deg); } 50% { transform: translateY(-0.5vh) rotate(-1deg); } 75% { transform: translateY(-1.25vh) rotate(0.5deg); } }
         
-        .icon-1 { width: 25.5%; top: 36%; left: 7.5%; }
-        .icon-2 { width: 26.6%; top: 47%; left: 44.2%; }
-        .icon-3 { width: 29.3%; top: 42%; left: 68%; }
-        .icon-4 { width: 22.2%; top: 59.5%; left: 54.5%; }
-        .icon-5 { width: 31.1%; top: 71%; left: 43%; }
-        .icon-6 { width: 44.4%; top: 56%; left: 6%; }
+        /* Konversi lebar ikon statis px ke % terhadap kontainer utama 450px */
+        .icon-1 { width: 25.5%; top: 35%; left: 6.5%; }
+        .icon-2 { width: 26.6%; top: 46%; left: 43.2%; }
+        .icon-3 { width: 29.3%; top: 41%; left: 67%; }
+        .icon-4 { width: 22.2%; top: 59%; left: 54.5%; }
+        .icon-5 { width: 31.1%; top: 72%; left: 43%; }
+        .icon-6 { width: 44.4%; top: 54%; left: 4%; }
 
         /* --- 5. KUCING, MAKANAN, RUMPUT (RESPONSIF BERBASIS PERSEN) --- */
         #cat-area { position: absolute; bottom: 0; left: 0; width: 100%; height: 32.5%; z-index: 20; pointer-events: none; }
@@ -134,50 +135,61 @@
         .foto-pria, .foto-wanita { object-fit: contain; pointer-events: none; }
         @media (min-width: 450px) { .ig-pria, .ig-wanita { font-size: 16px; } }
 
-        /* --- 🌟 FORM UCAPAN (TEMA SAGE & HIJAU TUA) 🌟 --- */
+        /* --- 🌟 BAGIAN FORM UCAPAN YANG SUDAH DIUBAH WARNANYA 🌟 --- */
         .form-ucapan { 
             display: flex; 
             flex-direction: column; 
             gap: 10px; 
             margin-bottom: 20px; 
-            background: #8a9549; 
+            background: #414528; /* Mengubah background form kirim ucapan menjadi Hijau Sage */
             padding: 15px; 
             border-radius: 14px; 
-            border: 1px solid #8a9549;
+            border: 1px solid;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
         .form-ucapan input, .form-ucapan textarea { 
             width: 100%; 
-            padding: 11px 14px; 
-            border: 1px solid rgba(255, 255, 255, 0.2); 
+            padding: 10px 14px; 
+            border: 1px solid rgba(255, 255, 255, 0.3); 
             border-radius: 10px; 
             font-size: 13px; 
             outline: none; 
             background: #ffffff;
-            color: #414528; 
-            font-weight: 600;
             transition: all 0.3s;
         }
-        .form-ucapan input::placeholder, 
+        /* Mengubah warna teks tamu saat mengetik nama */
+        .form-ucapan input {
+            color: #414528; 
+            font-weight: 600;
+        }
+        /* Mengubah warna teks tamu saat mengetik isi ucapan */
+        .form-ucapan textarea {
+            color: #414528; /* Hijau gelap agar kontras dan mudah dibaca */
+        }
+        /* Mengubah warna placeholder 'Nama Anda' */
+        .form-ucapan input::placeholder {
+            color: #414528;
+            opacity:;
+        }
+        /* Mengubah warna placeholder 'Tuliskan ucapan...' */
         .form-ucapan textarea::placeholder {
             color: #414528;
-            opacity: 0.55;
-            font-weight: 500;
         }
         .form-ucapan input:focus, .form-ucapan textarea:focus { 
             border-color: #ffffff; 
             background: #ffffff;
-            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
         }
+        /* Mengubah tombol kirim ucapan agar match dengan tema */
         .btn-kirim-ucapan { 
-            background: #414528; 
-            color: white; 
+            background: white; /* Hijau gelap botol agar kontras di atas bg sage */
+            color: 414528; 
             border: none; 
-            padding: 12px; 
+            padding: 8px; 
             border-radius: 10px; 
             cursor: pointer; 
             font-weight: bold; 
-            font-size: 13px; 
+            font-size: 12px; 
             transition: background 0.2s; 
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -197,15 +209,21 @@
         .area-komentar::-webkit-scrollbar { width: 3px; }
         .area-komentar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
         
-        .chat-row { display: flex; flex-direction: column; width: 100%; }
+        /* Wadah Bubble tunggal */
+        .chat-row {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+        /* Mengatur posisi ke kiri (tamu) atau kanan (mempelai) */
         .chat-row.tamu { align-items: flex-start; }
         .chat-row.mempelai { align-items: flex-end; }
 
         .nama-komentator { 
             font-size: 11px; 
-            font-weight: 700; 
+            font-weight: 600; 
             color: #414528; 
-            margin-bottom: 4px; 
+            margin-bottom: 3px; 
             margin-left: 6px;
             margin-right: 6px;
             display: flex; 
@@ -213,29 +231,32 @@
             gap: 5px; 
         }
         
+        /* Base Bubble Chat */
         .box-komentar { 
             max-width: 85%; 
             padding: 10px 14px; 
-            font-size: 13px;
+            font-size: 13.5px;
             line-height: 1.45;
             word-break: break-word;
             box-shadow: 0 2px 5px rgba(0,0,0,0.03);
         }
         
+        /* Bubble Chat Tamu (Warna Abu Kiri) */
         .chat-row.tamu .box-komentar {
-            background: #f1f5f9; 
-            color: #334155; 
+            background: #e9edd9; 
+            color: #3c4724;
             border-radius: 4px 16px 16px 16px; 
             text-align: left;
         }
         
+        /* Bubble Chat Mempelai (Warna Sage Green Kanan) */
         .chat-row.mempelai .box-komentar {
-            background: #e2e8f0;
+            background: #e2e8f0; /* Default fallback */
             border-radius: 16px 4px 16px 16px;
             text-align: right;
         }
         .box-komentar.pinned { 
-            background: #e9edd9 !important; 
+            background: #e9edd9 !important; /* Warna Sage Green Halus */
             color: #3c4724;
             border: 1px solid rgba(138, 149, 73, 0.2);
         }
@@ -274,6 +295,7 @@
 <body>
 
     <div class="app-container">
+
         <div id="overlay-awal">
             <button class="btn-buka" onclick="bukaUndangan()">Mulai</button>
         </div>
@@ -283,283 +305,409 @@
             <div class="gate gate-right"></div>
         </div>
 
+        <div id="bg-container">
+            <video id="video1" class="bg-media" playsinline muted><source src="video1.mp4" type="video/mp4"></video>
+            <img id="fotoBackground" class="bg-media" src="bgisi.png"> 
+        </div>
+
         <div id="main-content">
-            <div id="bg-container">
-                <img src="bg.png" class="bg-media" id="bg-img" alt="Background">
-            </div>
-            
-            <div id="hint-text">TAP IKON UNTUK MEMBUKA MENU</div>
+            <div id="hint-text">Klik benda melayang untuk detail acara</div>
+            <div class="icon-item icon-1" onclick="putarSuara('Ucapan & Doa', 'suara-ucapan')"><img src="ucapan.png"></div>
+            <div class="icon-item icon-2" onclick="putarSuara('Tentang Kami', 'suara-tentang', true)"><img src="tentangkami.png"></div>
+            <div class="icon-item icon-3" onclick="putarSuara('Love Story', 'suara-story')"><img src="lovestory.png"></div>
+            <div class="icon-item icon-4" onclick="putarSuara('Rangkaian Acara', 'suara-acara')"><img src="acara.png"></div>
+            <div class="icon-item icon-5" onclick="putarSuara('Waktu & Tempat', 'suara-alamat')"><img src="alamat.png"></div>
+            <div class="icon-item icon-6" onclick="putarSuara('Galeri', 'suara-galeri')"><img src="galeri.png"></div>
 
-            <div class="icon-item icon-1" onclick="openModal('tentang')"><img src="menu1.png" alt="Tentang"></div>
-            <div class="icon-item icon-2" onclick="openModal('acara')"><img src="menu2.png" alt="Acara"></div>
-            <div class="icon-item icon-3" onclick="openModal('galeri')"><img src="menu3.png" alt="Galeri"></div>
-            <div class="icon-item icon-4" onclick="openModal('cerita')"><img src="menu4.png" alt="Cerita"></div>
-            <div class="icon-item icon-5" onclick="openModal('ucapan')"><img src="menu5.png" alt="Ucapan"></div>
-            <div class="icon-item icon-6" onclick="openModal('hadiah')"><img src="menu6.png" alt="Hadiah"></div>
+            <div id="cat-area">
+                <div id="food-wrapper" class="pulse-active" onclick="panggilKucing()"><img src="wadahmakan.png" id="cat-food-icon"></div>
+                <div id="cat-container">
+                    <div id="cat-bubble">meow meow</div>
+                    <video id="cat-walk-right" class="cat-vid" loop playsinline muted><source src="kucingkanan.webm" type="video/mp4"></video>
+                    <video id="cat-walk-left" class="cat-vid hidden" loop playsinline muted><source src="kucingkiri.webm" type="video/mp4"></video>
+                    <video id="cat-eat" class="cat-vid hidden" loop playsinline muted><source src="kucingmakan.webm" type="video/mp4"></video>
+                </div>
+                <div id="grass-layer"><img src="rumput.png" id="grass-image"></div>
+            </div>
         </div>
 
-        <div id="cat-area" class="hidden">
-            <div id="food-wrapper">
-                <img src="makanan.png" id="cat-food-icon" onclick="beriMakan()" alt="Makanan Kucing">
-            </div>
-            <div id="cat-container" onclick="sentuhKucing()">
-                <div id="cat-bubble">Meow!</div>
-                <video id="cat-video" class="cat-vid" loop muted playsinline>
-                    <source src="kucing_diam.mp4" type="video/mp4">
-                </video>
-            </div>
-            <div id="grass-layer">
-                <img src="rumput.png" id="grass-image" alt="Rumput">
-            </div>
-        </div>
     </div>
 
-    <audio id="backsound" loop>
-        <source src="backsound.mp3" type="audio/mp4">
-    </audio>
-
-    <div id="modal" onclick="closeModal(event)">
+    <div id="modal" onclick="tutup()">
         <div class="modal-content" onclick="event.stopPropagation()">
+            <h2 id="m-title" style="color: #d4af37; text-align: center;"></h2>
             <div id="m-body"></div>
+            <button onclick="tutup()" style="margin-top:15px; padding: 10px; border: none; border-radius: 8px; background: #d4af37; color: white; cursor: pointer; font-weight: bold;">Tutup</button>
         </div>
     </div>
 
     <div id="lightbox" onclick="this.style.display='none'">
-        <img id="lightbox-img" src="" alt="Lightbox">
+        <img id="lightbox-img" src="">
     </div>
 
+    <audio id="sfx-gerbang" src="sound-gerbang.mp3"></audio>
+    <audio id="sfx-narasi-gerbang" src="vogerbang.mp3"></audio>
+    <audio id="bgm-utama" src="moon.mp3" preload="auto"></audio>
+    <audio id="suara-ucapan" src="vodoa.mp3"></audio>
+    <audio id="suara-tentang" src="vokami.mp3"></audio>
+    <audio id="suara-story" src="vobertemu.mp3"></audio>
+    <audio id="suara-acara" src="voacara.mp3"></audio>
+    <audio id="suara-alamat" src="votanggal.mp3"></audio>
+    <audio id="suara-galeri" src="vogaleri.mp3"></audio>
+
     <script>
-        const overlayAwal = document.getElementById('overlay-awal');
-        const gateContainer = document.getElementById('gate-container');
-        const mainContent = document.getElementById('main-content');
-        const catArea = document.getElementById('cat-area');
-        const bgImg = document.getElementById('bg-img');
-        const audio = document.getElementById('backsound');
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxJXFO0R5_i9Z_06JNpUT1FLow3wpSkK7XEaSx4QE-9rT2fo0V2grsGjTOitG3qbCjv/exec";
 
-        const catVideo = document.getElementById('cat-video');
-        const catBubble = document.getElementById('cat-bubble');
+        const v1 = document.getElementById('video1');
+        const fotoBg = document.getElementById('fotoBackground');
+        const catBox = document.getElementById('cat-container');
+        const bubble = document.getElementById('cat-bubble');
+        const walkR = document.getElementById('cat-walk-right');
+        const walkL = document.getElementById('cat-walk-left');
+        const eatV = document.getElementById('cat-eat');
+        const bgm = document.getElementById('bgm-utama');
+        const narasiGerbang = document.getElementById('sfx-narasi-gerbang');
         const foodWrapper = document.getElementById('food-wrapper');
+        
+        let suaraAktif = null;
+        let volumeInterval = null;
+        let countdownInterval = null;
 
-        let catState = 'diam'; // diam, makan, manja
-        let bubbleTimeout, stateTimeout;
+        function setBgmVolume(targetVolume) {
+            clearInterval(volumeInterval);
+            let step = 0.02;
+            volumeInterval = setInterval(() => {
+                let currentVol = bgm.volume;
+                if (Math.abs(currentVol - targetVolume) < step) {
+                    bgm.volume = targetVolume;
+                    clearInterval(volumeInterval);
+                } else {
+                    bgm.volume += (targetVolume > currentVol ? step : -step);
+                }
+            }, 50);
+        }
 
         function bukaUndangan() {
-            overlayAwal.style.opacity = '0';
+            document.getElementById('overlay-awal').style.opacity = '0';
             setTimeout(() => {
-                overlayAwal.style.display = 'none';
-                gateContainer.classList.remove('hidden');
+                document.getElementById('overlay-awal').classList.add('hidden');
+                document.getElementById('gate-container').classList.remove('hidden');
             }, 1000);
-            audio.play().catch(() => console.log("Audio play blocked"));
         }
 
         function bukaGerbang() {
-            gateContainer.classList.add('gate-open');
-            mainContent.style.pointerEvents = 'auto';
-            mainContent.style.opacity = '1';
-            bgImg.style.opacity = '1';
-            
+            document.getElementById('gate-container').classList.add('gate-open');
+            v1.style.opacity = '1'; v1.play();
+            bgm.currentTime = 2.24; bgm.volume = 0.5; bgm.play(); bgm.loop = true;
+            document.getElementById('sfx-gerbang').play();
+            setBgmVolume(0.1); 
+            setTimeout(() => { narasiGerbang.play(); }, 800); 
+            narasiGerbang.onended = () => { setBgmVolume(0.5); };
             setTimeout(() => {
-                catArea.classList.remove('hidden');
-                catVideo.play();
-            }, 1500);
-
-            setTimeout(() => {
-                gateContainer.style.display = 'none';
+                v1.style.opacity = '0'; fotoBg.style.opacity = '1';
+                document.getElementById('main-content').style.opacity = '1';
+                startPatrol();
             }, 3000);
+            setTimeout(() => { document.getElementById('gate-container').classList.add('hidden'); }, 3100);
         }
 
-        // --- SISTEM GAME KUCING INTERAKTIF ---
-        function gantiVideoKucing(namaFile, statusBaru) {
-            catState = statusBaru;
-            catVideo.src = namaFile;
-            catVideo.load();
-            catVideo.play();
+        function zoomFoto(src) {
+            const lb = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            img.src = src;
+            lb.style.display = 'flex';
         }
 
-        function tampilBubble(teks) {
-            clearTimeout(bubbleTimeout);
-            catBubble.innerText = teks;
-            catBubble.style.opacity = '1';
-            bubbleTimeout = setTimeout(() => { catBubble.style.opacity = '0'; }, 3000);
-        }
-
-        function beriMakan() {
-            if(catState !== 'diam') return;
-            foodWrapper.classList.add('pulse-active');
-            gantiVideoKucing('kucing_makan.mp4', 'makan');
-            tampilBubble('Nyam nyam.. enak!');
-
-            clearTimeout(stateTimeout);
-            stateTimeout = setTimeout(() => {
-                foodWrapper.classList.remove('pulse-active');
-                gantiVideoKucing('kucing_diam.mp4', 'diam');
-            }, 5000);
-        }
-
-        function sentuhKucing() {
-            if(catState === 'makan') {
-                tampilBubble('Jangan diganggu, lagi makan!');
+        function simpanUcapan() {
+            const nama = document.getElementById('input-nama').value.trim();
+            const teks = document.getElementById('input-teks').value.trim();
+            
+            if(!nama || !teks) {
+                alert("Harap isi nama dan ucapan doa restu Anda.");
                 return;
             }
-            clearTimeout(stateTimeout);
-            gantiVideoKucing('kucing_manja.mp4', 'manja');
-            
-            const respon = ['Purr... sayang kamu!', 'Usap terus kak~', 'Meoww, nyaman sekali'];
-            tampilBubble(respon[Math.floor(Math.random() * respon.length)]);
 
-            stateTimeout = setTimeout(() => {
-                gantiVideoKucing('kucing_diam.mp4', 'diam');
-            }, 4000);
+            const btnKirim = document.querySelector('.btn-kirim-ucapan');
+            btnKirim.innerText = "Mengirim...";
+            btnKirim.disabled = true;
+
+            fetch(`${SCRIPT_URL}?nama=${encodeURIComponent(nama)}&teks=${encodeURIComponent(teks)}`, {
+                method: 'POST'
+            })
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('input-nama').value = '';
+                document.getElementById('input-teks').value = '';
+                tampilkanUcapan(); 
+                alert("Terima kasih atas doa restunya!");
+            })
+            .catch(err => {
+                console.error("Fetch error:", err);
+                setTimeout(() => {
+                    document.getElementById('input-nama').value = '';
+                    document.getElementById('input-teks').value = '';
+                    tampilkanUcapan();
+                }, 1000);
+            })
+            .finally(() => {
+                btnKirim.innerText = "Kirim Ucapan";
+                btnKirim.disabled = false;
+            });
         }
 
-        // --- MANAJEMEN WINDOW MODAL & KONTEN TEMPLATE ---
-        function openModal(jenis) {
-            const body = document.getElementById('m-body');
-            body.innerHTML = ''; 
+        function tampilkanUcapan() {
+            const container = document.getElementById('box-list-ucapan');
+            if(!container) return;
 
-            if(jenis === 'tentang') {
-                body.innerHTML = `
-                    <div class="tentang-wrapper">
-                        <img src="tentang_base.png" style="width:100%; height:auto; display:block;" alt="Base">
-                        <div class="overlay-layer">
-                            <img src="foto_pria.png" class="foto-pria" style="top:15%; left:10%; width:35%;" alt="Pria">
-                            <img src="foto_wanita.png" class="foto-wanita" style="top:15%; right:10%; width:35%;" alt="Wanita">
-                            <a href="https://instagram.com/pria" target="_blank" class="ig-pria" style="top:55%; left:15%;">@mempelai_pria</a>
-                            <a href="https://instagram.com/wanita" target="_blank" class="ig-wanita" style="top:55%; right:15%;">@mempelai_wanita</a>
+            container.innerHTML = `<p style="text-align:center; color:#999; font-size:12px; padding: 10px;">Memuat ucapan doa...</p>`;
+
+            fetch(SCRIPT_URL + '?_t=' + Date.now())
+            .then(res => res.json())
+            .then(data => {
+                let htmlKomentar = `
+                    <div class="chat-row mempelai">
+                        <div class="nama-komentator">Latifa & Ilmi <span class="badge-owner">Mempelai</span></div>
+                        <div class="box-komentar pinned">
+                            <div class="isi-komentator">Terima kasih ucapan & doa nya, ditunggu kehadiran saudara/i semua🤍</div>
                         </div>
-                    </div>`;
-            } 
-            else if(jenis === 'acara') {
-                body.innerHTML = `
-                    <div class="custom-img-container"><img src="acara_header.png" alt="Header"></div>
+                    </div>
+                `;
+
+                data.reverse().forEach(item => {
+                    htmlKomentar += `
+                        <div class="chat-row tamu">
+                            <div class="nama-komentator">${escapeHTML(item.nama)}</div>
+                            <div class="box-komentar">
+                                <div class="isi-komentator">${escapeHTML(item.teks)}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = htmlKomentar;
+                container.scrollTop = 0;
+            })
+            .catch(err => {
+                console.error("Gagal memuat data:", err);
+                container.innerHTML = `<p style="text-align:center; color:#ff4d4d; font-size:12px; padding: 10px;">Gagal memuat daftar ucapan.</p>`;
+            });
+        }
+
+        function escapeHTML(text) {
+            return text.replace(/[&<>"']/g, function(m) {
+                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
+            });
+        }
+
+        function runCountdown() {
+            const targetDate = new Date("June 14, 2026 00:00:00").getTime();
+            
+            clearInterval(countdownInterval);
+            countdownInterval = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+
+                let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60 * 60));
+                let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                if (distance < 0) {
+                    clearInterval(countdownInterval);
+                    days = hours = minutes = seconds = 0;
+                }
+
+                const dStr = String(days).padStart(2, '0');
+                const hStr = String(hours).padStart(2, '0');
+                const mStr = String(minutes).padStart(2, '0');
+                const sStr = String(seconds).padStart(2, '0');
+
+                if (document.getElementById("d1")) {
+                    document.getElementById("d1").innerText = dStr[0];
+                    document.getElementById("d2").innerText = dStr[1];
+                    document.getElementById("h1").innerText = hStr[0];
+                    document.getElementById("h2").innerText = hStr[1];
+                    document.getElementById("m1").innerText = mStr[0];
+                    document.getElementById("m2").innerText = mStr[1];
+                    document.getElementById("s1").innerText = sStr[0];
+                    document.getElementById("s2").innerText = sStr[1];
+                }
+            }, 1000);
+        }
+
+        function putarSuara(judul, idSuara, isTentang = false) {
+            const mTitle = document.getElementById('m-title');
+            const mBody = document.getElementById('m-body');
+            mTitle.innerText = judul; 
+            
+            if (isTentang) {
+                mBody.innerHTML = `
+                    <div class="tentang-wrapper">
+                        <img src="kami.png" style="width: 100%; height: auto; display: block;">
+                        <div class="overlay-layer">
+                            <img src="" class="foto-pria" 
+                                 style="top:10%; left:39%; width:48%; height: auto; max-height: 300px; z-index: 1;">
+                            <img src="" class="foto-wanita" 
+                                 style="top:10%; left:-4%; width:48%; height: auto; max-height: 300px; z-index: 1;">
+                            
+                            <a href="https://instagram.com/_illmii" target="_blank" class="ig-pria" style="top:46%; left:65%; z-index: 100;">@_illmii</a>
+                            <a href="https://instagram.com/latifaries" target="_blank" class="ig-wanita" style="top:46%; left:18%; z-index: 40;">@latifaries</a>
+                        </div>
+                    </div>
+                `;
+            } else if (judul === 'Love Story') {
+                mBody.innerHTML = `
+                    <div style="width: 100%; height: auto; display: flex; justify-content: center; align-items: center;">
+                        <img src="story.png" style="width: 100%; height: auto; border-radius: 4px; display: block; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                    </div>
+                `;
+            } else if (judul === 'Ucapan & Doa') {
+                mBody.innerHTML = `
+                    <div class="form-ucapan">
+                        <input type="text" id="input-nama" placeholder="Nama Anda" maxlength="40">
+                        <textarea id="input-teks" placeholder="Tuliskan ucapan doa restu Anda..." rows="3" maxlength="300"></textarea>
+                        <button class="btn-kirim-ucapan" onclick="simpanUcapan()">Kirim Ucapan</button>
+                    </div>
+                    <div class="area-komentar" id="box-list-ucapan"></div>
+                `;
+                tampilkanUcapan(); 
+            } else if (judul === 'Rangkaian Acara') {
+                mBody.innerHTML = `
+                    <div class="custom-img-container" style="margin-top: 10px;">
+                        <img src="rangkai.png" alt="Foto Rangkaian Acara" style="width: 100%; height: auto; max-width: 450px; border-radius: 4px; display: block; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                    </div>
+                `;
+            } else if (judul === 'Waktu & Tempat') {
+                mBody.innerHTML = `
                     <div class="acara-container">
                         <div class="info-lokasi-waktu">
-                            Ahad, 22 Maret 2026<br>Pukul 09.00 WITA - Selesai<br>Gedung Serbaguna Banjarmasin
+                            <p style="color: #d4af37; font-size: 16px; margin-bottom: 5px;"></p>
+                            <p style="font-size: 12px; color: #666;"></p>
                         </div>
-                        <div class="countdown-box-wrapper" id="countdown-render"></div>
-                    </div>
-                    <div class="maps-img-container">
-                        <a href="https://maps.google.com" target="_blank">
-                            <img src="maps_button.png" alt="Tombol Lokasi">
-                        </a>
-                    </div>
-                    <div class="custom-img-container"><img src="acara_footer.png" alt="Footer"></div>`;
-                initCountdown();
-            }
-            else if(jenis === 'galeri') {
-                body.innerHTML = `
-                    <div class="custom-img-container"><img src="galeri_banner.png" alt="Banner"></div>
-                    <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; padding:10px 0;">
-                        <img src="g1.png" style="width:100%; border-radius:8px; cursor:pointer;" onclick="viewLightbox(this.src)" alt="G1">
-                        <img src="g2.png" style="width:100%; border-radius:8px; cursor:pointer;" onclick="viewLightbox(this.src)" alt="G2">
-                        <img src="g3.png" style="width:100%; border-radius:8px; cursor:pointer;" onclick="viewLightbox(this.src)" alt="G3">
-                        <img src="g4.png" style="width:100%; border-radius:8px; cursor:pointer;" onclick="viewLightbox(this.src)" alt="G4">
-                    </div>`;
-            }
-            else if(jenis === 'cerita') {
-                body.innerHTML = `
-                    <div class="custom-img-container"><img src="cerita1.png" alt="Cerita 1"></div>
-                    <div class="custom-img-container"><img src="cerita2.png" alt="Cerita 2"></div>`;
-            }
-            else if(jenis === 'ucapan') {
-                body.innerHTML = `
-                    <div class="form-ucapan">
-                        <input type="text" id="input-nama" placeholder="Nama Anda" required>
-                        <textarea id="input-pesan" rows="3" placeholder="Tuliskan ucapan dan doa restu Anda..." required></textarea>
-                        <button class="btn-kirim-ucapan" onclick="kirimPesan()">Kirim Ucapan</button>
-                    </div>
-                    <div class="area-komentar" id="box-aliran-chat">
-                        <div class="chat-row mempelai">
-                            <div class="nama-komentator"><span class="badge-owner">Mempelai</span></div>
-                            <div class="box-komentar pinned">Terima kasih atas ucapan dan doa restu dari teman-teman semua. Sampai jumpa di hari bahagia kami! 🤍</div>
+
+                        <div class="countdown-box-wrapper">
+                            <div class="flip-segment">
+                                <div class="flip-card-container">
+                                    <div id="d1" class="flip-card">0</div>
+                                    <div id="d2" class="flip-card">0</div>
+                                </div>
+                                <span class="flip-label">Hari</span>
+                            </div>
+                            <div class="flip-segment">
+                                <div class="flip-card-container">
+                                    <div id="h1" class="flip-card">0</div>
+                                    <div id="h2" class="flip-card">0</div>
+                                </div>
+                                <span class="flip-label">Jam</span>
+                            </div>
+                            <div class="flip-segment">
+                                <div class="flip-card-container">
+                                    <div id="m1" class="flip-card">0</div>
+                                    <div id="m2" class="flip-card">0</div>
+                                </div>
+                                <span class="flip-label">Menit</span>
+                            </div>
+                            <div class="flip-segment">
+                                <div class="flip-card-container">
+                                    <div id="s1" class="flip-card">0</div>
+                                    <div id="s2" class="flip-card">0</div>
+                                </div>
+                                <span class="flip-label">Detik</span>
+                            </div>
                         </div>
-                        <div class="chat-row tamu">
-                            <div class="nama-komentator">Budi Santoso</div>
-                            <div class="box-komentar">Selamat menempuh hidup baru! Semoga menjadi keluarga yang sakinah, mawaddah, warahmah. Amin.</div>
+
+                        <div class="custom-img-container">
+                            <img src="waktu.png" alt="Foto Rangkaian Acara">
                         </div>
-                    </div>`;
-            }
-            else if(jenis === 'hadiah') {
-                body.innerHTML = `
-                    <div class="custom-img-container"><img src="hadiah1.png" alt="Hadiah 1"></div>
-                    <div class="custom-img-container"><img src="hadiah2.png" alt="Hadiah 2"></div>`;
+
+                        <div class="maps-img-container">
+                            <p style="font-size: 14px; font-weight: bold; color: #414528; margin-bottom: 8px;">Google Maps Lokasi</p>
+                            <a href="https://g.co/kgs/4M9iUc" target="_blank">
+                                <img src="maps.png" alt="Google Maps Lokasi">
+                            </a>
+                        </div>
+                    </div>
+                `;
+                runCountdown(); 
+            } else if (judul === 'Galeri') {
+                mBody.innerHTML = `
+                    <div class="galeri-scroll-container" style="display: flex; flex-direction: column; width: 100%; padding-bottom: 10px; gap: 8px;">
+                        <img src="1.png" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="2.png" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="3.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="4.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="5.png" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="6.png" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="7.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="8.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="9.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="10.png" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="11.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="12.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="13.png" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="14.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="15.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="16.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="17.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="18.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                    </div>
+                `;
+            } else {
+                mBody.innerHTML = `<p style="color:#666; text-align:center;">Konten untuk ${judul} segera hadir...</p>`;
             }
 
             document.getElementById('modal').style.display = 'flex';
+            if (suaraAktif) { suaraAktif.pause(); suaraAktif.currentTime = 0; }
+            suaraAktif = document.getElementById(idSuara);
+            setBgmVolume(0.1); 
+            setTimeout(() => { if(document.getElementById('modal').style.display === 'flex') { suaraAktif.play(); } }, 600); 
+            suaraAktif.onended = () => { setBgmVolume(0.5); };
         }
 
-        function closeModal(e) {
+        function tutup() {
             document.getElementById('modal').style.display = 'none';
-            if(window.countdownInterval) clearInterval(window.countdownInterval);
+            if (suaraAktif) { suaraAktif.pause(); suaraAktif.currentTime = 0; }
+            clearInterval(countdownInterval); 
+            setBgmVolume(0.5); 
         }
 
-        function viewLightbox(src) {
-            document.getElementById('lightbox-img').src = src;
-            document.getElementById('lightbox').style.display = 'flex';
+        function startPatrol() {
+            if (window.isEating) return;
+            bubble.innerText = "meow meow"; bubble.style.opacity = "1";
+            walkL.classList.add('hidden'); walkR.classList.remove('hidden'); walkR.play();
+            catBox.style.transition = "left 6s linear, bottom 0.5s ease";
+            catBox.style.left = "calc(110% - 33.3%)"; 
+            setTimeout(() => {
+                if (window.isEating) return;
+                walkR.classList.add('hidden'); walkL.classList.remove('hidden'); walkL.play();
+                catBox.style.left = "26.6%"; 
+                setTimeout(() => { if (!window.isEating) startPatrol(); }, 7000);
+            }, 7000);
         }
 
-        // --- MANAJEMEN SISTEM REALTIME CHAT SIMULASI ---
-        function kirimPesan() {
-            const nama = document.getElementById('input-nama').value.trim();
-            const pesan = document.getElementById('input-pesan').value.trim();
-            if(!nama || !pesan) return alert('Silakan lengkapi nama dan pesan Anda.');
-
-            const container = document.getElementById('box-aliran-chat');
-            const baru = document.createElement('div');
-            baru.className = 'chat-row tamu';
-            baru.innerHTML = `
-                <div class="nama-komentator">${nama}</div>
-                <div class="box-komentar">${pesan}</div>
-            `;
-            container.insertBefore(baru, container.firstChild);
-
-            document.getElementById('input-nama').value = '';
-            document.getElementById('input-pesan').value = '';
-        }
-
-        // --- SISTEM DIGITAL COUNTDOWN TARGET ---
-        function initCountdown() {
-            const target = new Date("March 22, 2026 09:00:00").getTime();
-            const renderArea = document.getElementById('countdown-render');
-
-            function updateCard() {
-                const now = new Date().getTime();
-                const diff = target - now;
-
-                if (diff <= 0) {
-                    renderArea.innerHTML = "<h4>Acara Telah Dimulai!</h4>";
-                    clearInterval(window.countdownInterval);
-                    return;
-                }
-
-                const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const s = Math.floor((diff % (1000 * 60)) / 1000);
-
-                renderArea.innerHTML = `
-                    ${createFlipSegment(d, 'Hari')}
-                    ${createFlipSegment(h, 'Jam')}
-                    ${createFlipSegment(m, 'Menit')}
-                    ${createFlipSegment(s, 'Detik')}
-                `;
-            }
-
-            function createFlipSegment(val, label) {
-                const str = String(val).padStart(2, '0');
-                return `
-                    <div class="flip-segment">
-                        <div class="flip-card-container">
-                            <div class="flip-card">${str[0]}</div>
-                            <div class="flip-card">${str[1]}</div>
-                        </div>
-                        <div class="flip-label">${label}</div>
-                    </div>`;
-            }
-
-            updateCard();
-            window.countdownInterval = setInterval(updateCard, 1000);
+        function panggilKucing() {
+            if (window.isEating) return;
+            window.isEating = true;
+            foodWrapper.classList.remove('pulse-active');
+            bubble.innerText = "Terima kasih, meow!"; bubble.style.opacity = "1";
+            catBox.style.transition = "left 3s ease-out, bottom 3s ease-out"; 
+            catBox.style.left = "3.3%"; 
+            catBox.style.bottom = "18.5%"; 
+            walkR.classList.add('hidden'); walkL.classList.remove('hidden'); walkL.play();
+            setTimeout(() => {
+                walkL.classList.add('hidden'); eatV.classList.remove('hidden'); eatV.play();
+                catBox.style.transition = "none"; 
+                catBox.style.width = "33.3%"; 
+                setTimeout(() => {
+                    eatV.classList.add('hidden'); bubble.style.opacity = "0";
+                    window.isEating = false; foodWrapper.classList.add('pulse-active');
+                    catBox.style.transition = "bottom 0.5s ease, width 0.5s ease";
+                    catBox.style.bottom = "-4%"; 
+                    catBox.style.width = "33.3%"; 
+                    startPatrol();
+                }, 5000);
+            }, 3000); 
         }
     </script>
 </body>
 </html>
+
