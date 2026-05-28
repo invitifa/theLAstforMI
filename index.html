@@ -26,7 +26,7 @@
             position: absolute; inset: 0; z-index: 100;
             background: url('awal.png') center/100% 100% no-repeat;
             display: flex; align-items: flex-end; justify-content: center; 
-            padding-bottom: 78%; transition: opacity 1s ease;
+            padding-bottom: 81%; transition: opacity 1s ease;
         }
 
         .btn-buka {
@@ -69,7 +69,7 @@
         /* --- 5. AREA INTERAKTIF KUCING (RUMPUT DI PALING BAWAH LAYAR) --- */
         #cat-area { 
             position: absolute; 
-            bottom: 90; /* Menempel mutlak di paling bawah layar */
+            bottom: 0; /* Diubah dari 90 ke 0 agar pas di bawah layar HP */
             left: 0; 
             width: 100%; 
             height: 160px; 
@@ -82,7 +82,7 @@
             z-index: 50; 
             width: 85px; 
             left: 20px; 
-            bottom: 8px; /* Wadah makan pas di atas rumput paling bawah */
+            bottom: 10px; /* Disesuaikan sedikit agar pas di atas rumput utuh */
             display: flex; 
             flex-direction: column; 
             align-items: center; 
@@ -98,13 +98,13 @@
             z-index: 21; 
             width: 140px; 
             height: 140px; 
-            bottom: -2px; /* Kaki kucing menapak sempurna di rumput saat jalan */
+            bottom: 0; /* Diubah ke 0 agar kaki menapak pas di atas rumput yang tidak terpotong */
         }
         #cat-bubble { position: absolute; top: 25px; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.9); padding: 2px 6px; border-radius: 8px; font-size: 11px; font-weight: bold; color: #333; opacity: 0; transition: opacity 0.3s; z-index: 100; white-space: nowrap; }
         .cat-vid { width: 100%; height: 100%; object-fit: contain; }
         
         #grass-layer { position: absolute; bottom: 0; left: 0; width: 100%; pointer-events: none; z-index: 30; display: flex; align-items: flex-end; }
-        #grass-image { width: 100%; height: auto; margin-bottom: -2px; }
+        #grass-image { width: 100%; height: auto; margin-bottom: 0; } /* Diubah ke 0 agar bagian bawah rumput tidak terpotong keluar container */
 
         /* --- 6. MODAL SYSTEM --- */
         #modal { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; }
@@ -278,6 +278,7 @@
             lb.style.display = 'flex';
         }
 
+        // Penyimpanan Lokal Ucapan
         function simpanUcapan() {
             const nama = document.getElementById('input-nama').value.trim();
             const teks = document.getElementById('input-teks').value.trim();
@@ -417,7 +418,7 @@
             bubble.innerText = "Terima kasih, meow!"; bubble.style.opacity = "1";
             catBox.style.transition = "left 3s ease-out, bottom 3s ease-out"; 
             
-            /* Posisi kucing berhenti menyamper wadah makan pas di atas rumput paling bawah */
+            /* Kucing berhenti pas sejajar dengan wadah makanan di atas rumput utuh */
             catBox.style.left = "15px"; 
             catBox.style.bottom = "24px"; 
             
@@ -431,7 +432,7 @@
                     catBox.style.transition = "bottom 0.5s ease, width 0.5s ease";
                     
                     /* Dikembalikan menapak di atas rumput semula */
-                    catBox.style.bottom = "-2px"; 
+                    catBox.style.bottom = "0"; 
                     catBox.style.width = "140px"; 
                     startPatrol();
                 }, 5000);
