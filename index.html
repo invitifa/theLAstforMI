@@ -22,19 +22,36 @@
             flex-shrink: 0; /* Mencegah container menciut di layar pendek */
         }
 
-        /* --- 1. OVERLAY AWAL --- */
+                /* --- 1. OVERLAY AWAL (DIKUNCI PRESISI) --- */
         #overlay-awal {
-            position: absolute; inset: 0; z-index: 100;
+            position: absolute; 
+            inset: 0; 
+            z-index: 100;
             background: url('awal.png') center/100% 100% no-repeat;
-            display: flex; align-items: flex-end; justify-content: center; 
-            padding-bottom: 82%; transition: opacity 1s ease;
+            display: block; /* Diubah dari flex ke block agar posisi tombol bisa dikunci pakai top/bottom persen */
+            transition: opacity 1s ease;
         }
 
         .btn-buka {
-            padding: 12px 35px; border: 2px solid rgba(255,255,255,0.5); border-radius: 12px;
-            background: #c18f30; color: white; cursor: pointer; font-weight: 800;
-            text-transform: uppercase; letter-spacing: 3px; font-size: 16px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4); transition: all 0.3s ease;
+            position: absolute;
+            /* Mengunci posisi tombol murni berdasarkan tinggi gambar latar belakang */
+            bottom: 15%; /* <--- UBAH PERSEN INI jika ingin menaikkan atau menurunkan tombol */
+            left: 50%;
+            transform: translateX(-50%); /* Memastikan tombol selalu berada tepat di tengah secara horizontal */
+            
+            padding: 12px 35px; 
+            border: 2px solid rgba(255,255,255,0.5); 
+            border-radius: 12px;
+            background: #c18f30; 
+            color: white; 
+            cursor: pointer; 
+            font-weight: 800;
+            text-transform: uppercase; 
+            letter-spacing: 3px; 
+            font-size: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4); 
+            transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
         /* --- 2. SISTEM GERBANG --- */
@@ -106,7 +123,7 @@
         
         #grass-layer { 
             position: absolute; 
-            bottom: 8px; 
+            bottom: 5px; 
             left: 0; 
             width: 100%; 
             pointer-events: none; 
