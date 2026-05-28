@@ -79,12 +79,12 @@
         @keyframes floatWobble { 0%, 100% { transform: translateY(0) rotate(0deg); } 25% { transform: translateY(-1vh) rotate(1deg); } 50% { transform: translateY(-0.5vh) rotate(-1deg); } 75% { transform: translateY(-1.25vh) rotate(0.5deg); } }
         
         /* Konversi lebar ikon statis px ke % terhadap kontainer utama 450px */
-        .icon-1 { width: 25.5%; top: 36%; left: 7.5%; }
-        .icon-2 { width: 26.6%; top: 47%; left: 44%; }
-        .icon-3 { width: 29.3%; top: 42%; left: 68%; }
-        .icon-4 { width: 22.2%; top: 60%; left: 54.5%; }
+        .icon-1 { width: 25.5%; top: 36%; left: 8.5%; }
+        .icon-2 { width: 26.6%; top: 48%; left: 45%; }
+        .icon-3 { width: 29.3%; top: 43%; left: 68%; }
+        .icon-4 { width: 22.2%; top: 59.5%; left: 54.5%; }
         .icon-5 { width: 31.1%; top: 71%; left: 43%; }
-        .icon-6 { width: 44.4%; top: 56%; left: 6%; }
+        .icon-6 { width: 44.4%; top: 56%; left: 8%; }
 
         /* --- 5. KUCING, MAKANAN, RUMPUT (RESPONSIF BERBASIS PERSEN) --- */
         #cat-area { position: absolute; bottom: 0; left: 0; width: 100%; height: 32.5%; z-index: 20; pointer-events: none; }
@@ -106,15 +106,15 @@
         
         #cat-container { 
             position: absolute; 
-            left: 22%; 
+            left: 26.5%; 
             pointer-events: auto; 
             z-index: 21; 
-            width: 26%; 
+            width: 33.3%; 
             height: auto;
             aspect-ratio: 1 / 1;
             bottom: -4%; 
         }
-        #cat-bubble { position: absolute; top: 8%; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.9); padding: 2px 6px; border-radius: 8px; font-size: 10px; font-weight: bold; color: #333; opacity: 0; transition: opacity 0.3s; z-index: 100; white-space: nowrap; }
+        #cat-bubble { position: absolute; top:15%; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.9); padding: 1.6px 5px; border-radius: 8px; font-size: 8px; font-weight: bold; color: #333; opacity: 0; transition: opacity 0.3s; z-index: 100; white-space: nowrap; }
         .cat-vid { width: 100%; height: 100%; object-fit: contain; }
         
         #grass-layer { position: absolute; bottom: 0; left: 0; width: 100%; pointer-events: none; z-index: 30; display: flex; align-items: flex-end; }
@@ -325,7 +325,12 @@
                     <div id="cat-bubble">meow meow</div>
                     <video id="cat-walk-right" class="cat-vid" loop playsinline muted><source src="kucingkanan.webm" type="video/mp4"></video>
                     <video id="cat-walk-left" class="cat-vid hidden" loop playsinline muted><source src="kucingkiri.webm" type="video/mp4"></video>
-                    <video id="cat-eat" class="cat-vid hidden" loop playsinline muted><source src="kucingmakan.webm" type="video/mp4"></video>
+                    
+                    <!-- AREA MODIFIKASI CUSTOM POSISI & UKURAN KUCING MAKAN -->
+                    <video id="cat-eat" class="cat-vid hidden" loop playsinline muted 
+                           style="width: 100%; height: 100%; object-fit: contain; transform: scale(0.85); margin-left: -19%; margin-top: -3%;">
+                        <source src="kucingmakan.webm" type="video/mp4">
+                    </video>
                 </div>
                 <div id="grass-layer"><img src="rumput.png" id="grass-image"></div>
             </div>
@@ -710,4 +715,3 @@
     </script>
 </body>
 </html>
-
