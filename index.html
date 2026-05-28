@@ -540,12 +540,12 @@
                 walkL.classList.add('hidden'); eatV.classList.remove('hidden'); eatV.play();
                 catBox.style.transition = "none"; 
                 // Mengubah ukuran lebar kotak kucing saat makan menggunakan sistem persen (setara dengan 73px dari 450px)
-                catBox.style.width = "16.2%"; 
+                catBox.style.width = "25%"; 
                 setTimeout(() => {
                     eatV.classList.add('hidden'); bubble.style.opacity = "0";
                     window.isEating = false; foodWrapper.classList.add('pulse-active');
                     catBox.style.transition = "bottom 0.5s ease, width 0.5s ease";
-                    catBox.style.bottom = "-4%"; 
+                    catBox.style.bottom = "15%"; 
                     catBox.style.width = "33.3%"; 
                     startPatrol();
                 }, 5000);
