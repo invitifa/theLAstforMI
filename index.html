@@ -43,7 +43,7 @@
             bottom: 44%; 
             left: 50%;
             transform: translateX(-50%);
-            padding: 10px 30px; border: 2px solid rgba(255,255,255,0.5); border-radius: 12px;
+            padding: 1.25vh 6.5vw; border: 2px solid rgba(255,255,255,0.5); border-radius: 12px;
             background: #c18f30; color: white; cursor: pointer; font-weight: 800;
             text-transform: uppercase; letter-spacing: 3px; font-size: 16px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.4); transition: all 0.3s ease;
@@ -69,32 +69,33 @@
         #bg-container { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
         .bg-media { width: 100%; height: 100%; object-fit: cover; position: absolute; transition: opacity 1.5s; opacity: 0; }
 
-        /* --- 4. IKON MENU --- */
+        /* --- 4. IKON MENU (RESPONSIF BERBASIS PERSEN) --- */
         #main-content { position: absolute; inset: 0; z-index: 10; opacity: 0; transition: opacity 2s ease-in-out; pointer-events: none; }
         #hint-text { position: absolute; top: 25%; left: 50%; transform: translateX(-50%); color: #8a9549; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-shadow: 0 0 10px rgba(0,0,0,0.5); animation: softFlicker 3s infinite ease-in-out; pointer-events: none; text-align: center; width: 100%; }
         @keyframes softFlicker { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
         
         .icon-item { position: absolute; height: auto; cursor: pointer; pointer-events: auto; animation: floatWobble 6s ease-in-out infinite; }
         .icon-item img { width: 100%; height: auto; display: block; filter: drop-shadow(4px 6px 10px rgba(0, 0, 0, 0.4)); transition: transform 0.3s ease; }
-        @keyframes floatWobble { 0%, 100% { transform: translateY(0) rotate(0deg); } 25% { transform: translateY(-8px) rotate(1deg); } 50% { transform: translateY(-4px) rotate(-1deg); } 75% { transform: translateY(-10px) rotate(0.5deg); } }
+        @keyframes floatWobble { 0%, 100% { transform: translateY(0) rotate(0deg); } 25% { transform: translateY(-1vh) rotate(1deg); } 50% { transform: translateY(-0.5vh) rotate(-1deg); } 75% { transform: translateY(-1.25vh) rotate(0.5deg); } }
         
-        .icon-1 { width: 115px; top: 35%; left: 6.5%; }
-        .icon-2 { width: 120px; top: 46%; left: 43.2%; }
-        .icon-3 { width: 132px; top: 41%; left: 67%; }
-        .icon-4 { width: 100px; top: 59%; left: 54.5%; }
-        .icon-5 { width: 140px; top: 72%; left: 43%; }
-        .icon-6 { width: 200px; top: 54%; left: 4%; }
+        /* Konversi lebar ikon statis px ke % terhadap kontainer utama 450px */
+        .icon-1 { width: 25.5%; top: 35%; left: 6.5%; }
+        .icon-2 { width: 26.6%; top: 46%; left: 43.2%; }
+        .icon-3 { width: 29.3%; top: 41%; left: 67%; }
+        .icon-4 { width: 22.2%; top: 59%; left: 54.5%; }
+        .icon-5 { width: 31.1%; top: 72%; left: 43%; }
+        .icon-6 { width: 44.4%; top: 54%; left: 4%; }
 
-        /* --- 5. KUCING, MAKANAN, RUMPUT (POSISI DITURUNKAN LAGI) --- */
-        #cat-area { position: absolute; bottom: 0; left: 0; width: 100%; height: 260px; z-index: 20; pointer-events: none; }
+        /* --- 5. KUCING, MAKANAN, RUMPUT (RESPONSIF BERBASIS PERSEN) --- */
+        #cat-area { position: absolute; bottom: 0; left: 0; width: 100%; height: 32.5%; z-index: 20; pointer-events: none; }
         
         #food-wrapper { 
             position: absolute; 
             pointer-events: auto; 
             z-index: 50; 
-            width: 90px; 
-            left: 24px; 
-            bottom: 18px; /* Diturunkan lebih bawah lagi dari 27px */
+            width: 20%; /* Fleksibel mengikuti lebar HP */
+            left: 5.3%; 
+            bottom: 7%; /* Menggunakan persen agar turunnya seimbang */
             display: flex; 
             flex-direction: column; 
             align-items: center; 
@@ -105,14 +106,15 @@
         
         #cat-container { 
             position: absolute; 
-            left: 120px; 
+            left: 26.6%; 
             pointer-events: auto; 
             z-index: 21; 
-            width: 150px; 
-            height: 150px; 
-            bottom: -11px; /* Diturunkan lebih amblas ke balik rumput dari -3px */
+            width: 33.3%; /* Fleksibel mengikuti ukuran HP kecil */
+            height: auto;
+            aspect-ratio: 1 / 1;
+            bottom: -4%; 
         }
-        #cat-bubble { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.9); padding: 2px 6px; border-radius: 8px; font-size: 10px; font-weight: bold; color: #333; opacity: 0; transition: opacity 0.3s; z-index: 100; }
+        #cat-bubble { position: absolute; top: 8%; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.9); padding: 2px 6px; border-radius: 8px; font-size: 10px; font-weight: bold; color: #333; opacity: 0; transition: opacity 0.3s; z-index: 100; white-space: nowrap; }
         .cat-vid { width: 100%; height: 100%; object-fit: contain; }
         
         #grass-layer { position: absolute; bottom: 0; left: 0; width: 100%; pointer-events: none; z-index: 30; display: flex; align-items: flex-end; }
@@ -516,11 +518,11 @@
             bubble.innerText = "meow meow"; bubble.style.opacity = "1";
             walkL.classList.add('hidden'); walkR.classList.remove('hidden'); walkR.play();
             catBox.style.transition = "left 6s linear, bottom 0.5s ease";
-            catBox.style.left = "calc(110% - 150px)"; 
+            catBox.style.left = "calc(110% - 33.3%)"; /* Menggunakan kalkulasi persen responsif */
             setTimeout(() => {
                 if (window.isEating) return;
                 walkR.classList.add('hidden'); walkL.classList.remove('hidden'); walkL.play();
-                catBox.style.left = "110px"; 
+                catBox.style.left = "26.6%"; 
                 setTimeout(() => { if (!window.isEating) startPatrol(); }, 7000);
             }, 7000);
         }
@@ -531,18 +533,20 @@
             foodWrapper.classList.remove('pulse-active');
             bubble.innerText = "Terima kasih, meow!"; bubble.style.opacity = "1";
             catBox.style.transition = "left 3s ease-out, bottom 3s ease-out"; 
-            catBox.style.left = "15px"; 
-            catBox.style.bottom = "47px"; /* Menyeimbangkan posisi makan saat wadah makanan diturunkan */
+            catBox.style.left = "3.3%"; /* Menyesuaikan posisi makan secara responsif */
+            catBox.style.bottom = "18.5%"; /* Menyeimbangkan posisi makan saat wadah makanan menggunakan sistem persen */
             walkR.classList.add('hidden'); walkL.classList.remove('hidden'); walkL.play();
             setTimeout(() => {
                 walkL.classList.add('hidden'); eatV.classList.remove('hidden'); eatV.play();
-                catBox.style.transition = "none"; catBox.style.width = "73px"; 
+                catBox.style.transition = "none"; 
+                // Mengubah ukuran lebar kotak kucing saat makan menggunakan sistem persen (setara dengan 73px dari 450px)
+                catBox.style.width = "16.2%"; 
                 setTimeout(() => {
                     eatV.classList.add('hidden'); bubble.style.opacity = "0";
                     window.isEating = false; foodWrapper.classList.add('pulse-active');
                     catBox.style.transition = "bottom 0.5s ease, width 0.5s ease";
-                    catBox.style.bottom = "-11px"; 
-                    catBox.style.width = "150px"; 
+                    catBox.style.bottom = "-4%"; 
+                    catBox.style.width = "33.3%"; 
                     startPatrol();
                 }, 5000);
             }, 3000); 
