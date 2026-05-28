@@ -236,6 +236,12 @@
     <audio id="suara-galeri" src="vogaleri.mp3"></audio>
 
     <script>
+        // ========================================================
+        // 🛠️ PASTE URL GOOGLE APPS SCRIPT KAMU DI SINI 🛠️
+        // ========================================================
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby8XUvgQJYjEYWW6La84mZL3-6S1s7Ck_6Y3tA31E3AltjvyYxNykY8UYawvPiIleRS/exec";
+        // ========================================================
+
         const v1 = document.getElementById('video1');
         const fotoBg = document.getElementById('fotoBackground');
         const catBox = document.getElementById('cat-container');
@@ -296,6 +302,7 @@
             lb.style.display = 'flex';
         }
 
+        // ✨ SEKARANG TERKONEKSI DATABASE SPREADSHEET (POST DATA) ✨
         function simpanUcapan() {
             const nama = document.getElementById('input-nama').value.trim();
             const teks = document.getElementById('input-teks').value.trim();
@@ -305,40 +312,77 @@
                 return;
             }
 
-            let dataLama = localStorage.getItem('undangan_ucapan');
-            let listUcapan = dataLama ? JSON.parse(dataLama) : [];
+            const btnKirim = document.querySelector('.btn-kirim-ucapan');
+            btnKirim.innerText = "Mengirim...";
+            btnKirim.disabled = true;
 
-            listUcapan.unshift({ nama: nama, teks: teks }); 
-            localStorage.setItem('undangan_ucapan', JSON.stringify(listUcapan));
-
-            document.getElementById('input-nama').value = '';
-            document.getElementById('input-teks').value = '';
-            tampilkanUcapan();
+            // Mengirim data ke Google Sheets menggunakan metode POST melalui fetch API
+            fetch(`${SCRIPT_URL}?nama=${encodeURIComponent(nama)}&teks=${encodeURIComponent(teks)}`, {
+                method: 'POST'
+            })
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('input-nama').value = '';
+                document.getElementById('input-teks').value = '';
+                tampilkanUcapan(); // Refresh list komentar secara real-time
+                alert("Terima kasih atas doa restunya!");
+            })
+            .catch(err => {
+                console.error("Fetch error:", err);
+                // Fallback otomatis karena CORS/Redirect Apps Script terkadang memicu block status di browser client
+                setTimeout(() => {
+                    document.getElementById('input-nama').value = '';
+                    document.getElementById('input-teks').value = '';
+                    tampilkanUcapan();
+                }, 1000);
+            })
+            .finally(() => {
+                btnKirim.innerText = "Kirim Ucapan";
+                btnKirim.disabled = false;
+            });
         }
 
+        // ✨ SEKARANG MEMUAT DATA SECARA REAL-TIME DARI SPREADSHEET (GET DATA) ✨
         function tampilkanUcapan() {
             const container = document.getElementById('box-list-ucapan');
             if(!container) return;
 
-            let dataLama = localStorage.getItem('undangan_ucapan');
-            let listUcapan = dataLama ? JSON.parse(dataLama) : [];
+            container.innerHTML = `<p style="text-align:center; color:#999; font-size:12px; padding: 10px;">Memuat ucapan doa...</p>`;
 
-            let htmlKomentar = `
-                <div class="box-komentar pinned">
-                    <div class="nama-komentator">Latifa & Ilmi <span class="badge-owner">Mempelai</span></div>
-                    <div class="isi-komentator">Terima kasih ucapan & doa nya, ditunggu kehadiran saudara/i semua🤍</div>
-                </div>
-            `;
-
-            listUcapan.forEach(item => {
-                htmlKomentar += `
-                    <div class="box-komentar">
-                        <div class="nama-komentator">${item.nama}</div>
-                        <div class="isi-komentator">${item.teks}</div>
+            // Fetch data dari Google Sheets dengan menggunakan cache-buster timestamp (?_t=)
+            fetch(SCRIPT_URL + '?_t=' + Date.now())
+            .then(res => res.json())
+            .then(data => {
+                // Pin ucapan utama dari pihak mempelai di bagian paling atas
+                let htmlKomentar = `
+                    <div class="box-komentar pinned">
+                        <div class="nama-komentator">Latifa & Ilmi <span class="badge-owner">Mempelai</span></div>
+                        <div class="isi-komentator">Terima kasih ucapan & doa nya, ditunggu kehadiran saudara/i semua🤍</div>
                     </div>
                 `;
+
+                // Balik urutan data (.reverse()) agar komentar paling baru masuk ke urutan teratas list
+                data.reverse().forEach(item => {
+                    htmlKomentar += `
+                        <div class="box-komentar">
+                            <div class="nama-komentator">${escapeHTML(item.nama)}</div>
+                            <div class="isi-komentator">${escapeHTML(item.teks)}</div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = htmlKomentar;
+            })
+            .catch(err => {
+                console.error("Gagal memuat data:", err);
+                container.innerHTML = `<p style="text-align:center; color:#ff4d4d; font-size:12px; padding: 10px;">Gagal memuat daftar ucapan.</p>`;
             });
-            container.innerHTML = htmlKomentar;
+        }
+
+        // Proteksi XSS inject agar teks input dari user aman dieksekusi di halaman website
+        function escapeHTML(text) {
+            return text.replace(/[&<>"']/g, function(m) {
+                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
+            });
         }
 
         function runCountdown() {
@@ -412,7 +456,7 @@
                     </div>
                     <div class="area-komentar" id="box-list-ucapan"></div>
                 `;
-                tampilkanUcapan();
+                tampilkanUcapan(); // Ambil list komentar otomatis dari Google Sheets setiap kali tab ucapan dibuka
             } else if (judul === 'Rangkaian Acara') {
                 mBody.innerHTML = `
                     <div class="custom-img-container" style="margin-top: 10px;">
@@ -518,7 +562,7 @@
             bubble.innerText = "meow meow"; bubble.style.opacity = "1";
             walkL.classList.add('hidden'); walkR.classList.remove('hidden'); walkR.play();
             catBox.style.transition = "left 6s linear, bottom 0.5s ease";
-            catBox.style.left = "calc(110% - 33.3%)"; /* Menggunakan kalkulasi persen responsif */
+            catBox.style.left = "calc(110% - 33.3%)"; 
             setTimeout(() => {
                 if (window.isEating) return;
                 walkR.classList.add('hidden'); walkL.classList.remove('hidden'); walkL.play();
@@ -533,13 +577,12 @@
             foodWrapper.classList.remove('pulse-active');
             bubble.innerText = "Terima kasih, meow!"; bubble.style.opacity = "1";
             catBox.style.transition = "left 3s ease-out, bottom 3s ease-out"; 
-            catBox.style.left = "3.3%"; /* Menyesuaikan posisi makan secara responsif */
-            catBox.style.bottom = "18.5%"; /* Menyeimbangkan posisi makan saat wadah makanan menggunakan sistem persen */
+            catBox.style.left = "3.3%"; 
+            catBox.style.bottom = "18.5%"; 
             walkR.classList.add('hidden'); walkL.classList.remove('hidden'); walkL.play();
             setTimeout(() => {
                 walkL.classList.add('hidden'); eatV.classList.remove('hidden'); eatV.play();
                 catBox.style.transition = "none"; 
-                // Mengembalikan ukuran lebar kotak kucing saat makan ke semula (33.3%)
                 catBox.style.width = "33.3%"; 
                 setTimeout(() => {
                     eatV.classList.add('hidden'); bubble.style.opacity = "0";
