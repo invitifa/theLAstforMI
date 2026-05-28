@@ -274,18 +274,15 @@
 <body>
 
     <div class="app-container">
-        <!-- 1. Overlay Awal -->
         <div id="overlay-awal">
-            <button class="btn-buka" onclick="bukaUndangan()">Buka Undangan</button>
+            <button class="btn-buka" onclick="bukaUndangan()">Mulai</button>
         </div>
 
-        <!-- 2. Sistem Gerbang -->
         <div id="gate-container" class="hidden" onclick="bukaGerbang()">
             <div class="gate gate-left"></div>
             <div class="gate gate-right"></div>
         </div>
 
-        <!-- 3. Konten Utama Animasi Ikon -->
         <div id="main-content">
             <div id="bg-container">
                 <img src="bg.png" class="bg-media" id="bg-img" alt="Background">
@@ -293,7 +290,6 @@
             
             <div id="hint-text">TAP IKON UNTUK MEMBUKA MENU</div>
 
-            <!-- Rangkaian Navigasi Menu Ikon -->
             <div class="icon-item icon-1" onclick="openModal('tentang')"><img src="menu1.png" alt="Tentang"></div>
             <div class="icon-item icon-2" onclick="openModal('acara')"><img src="menu2.png" alt="Acara"></div>
             <div class="icon-item icon-3" onclick="openModal('galeri')"><img src="menu3.png" alt="Galeri"></div>
@@ -302,7 +298,6 @@
             <div class="icon-item icon-6" onclick="openModal('hadiah')"><img src="menu6.png" alt="Hadiah"></div>
         </div>
 
-        <!-- 4. Area Kucing Aktif & Rumput Statis -->
         <div id="cat-area" class="hidden">
             <div id="food-wrapper">
                 <img src="makanan.png" id="cat-food-icon" onclick="beriMakan()" alt="Makanan Kucing">
@@ -319,24 +314,20 @@
         </div>
     </div>
 
-    <!-- AUDIO BACKSOUND -->
     <audio id="backsound" loop>
         <source src="backsound.mp3" type="audio/mp4">
     </audio>
 
-    <!-- MODAL POPUP GLOBAL -->
     <div id="modal" onclick="closeModal(event)">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div id="m-body"></div>
         </div>
     </div>
 
-    <!-- LIGHTBOX UNTUK GALERI FOTO -->
     <div id="lightbox" onclick="this.style.display='none'">
         <img id="lightbox-img" src="" alt="Lightbox">
     </div>
 
-    <!-- LOGIKAL JAVASCRIPT KONTROL OPERASIONAL -->
     <script>
         const overlayAwal = document.getElementById('overlay-awal');
         const gateContainer = document.getElementById('gate-container');
@@ -514,7 +505,7 @@
             if(!nama || !pesan) return alert('Silakan lengkapi nama dan pesan Anda.');
 
             const container = document.getElementById('box-aliran-chat');
-            const row baru = document.createElement('div');
+            const baru = document.createElement('div');
             baru.className = 'chat-row tamu';
             baru.innerHTML = `
                 <div class="nama-komentator">${nama}</div>
