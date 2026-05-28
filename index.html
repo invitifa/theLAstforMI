@@ -40,7 +40,7 @@
 
         .btn-buka {
             position: absolute;
-            bottom: 35%; 
+            bottom: 55%; 
             left: 50%;
             transform: translateX(-50%);
             padding: 10px 30px; border: 2px solid rgba(255,255,255,0.5); border-radius: 12px;
@@ -69,30 +69,31 @@
         #bg-container { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
         .bg-media { width: 100%; height: 100%; object-fit: cover; position: absolute; transition: opacity 1.5s; opacity: 0; }
 
-        /* --- 4. IKON MENU --- */
+        /* --- 4. IKON MENU (UKURAN DIKUNCI SAMA PERSIS TANPA MEMBESAR/MENGECIL) --- */
         #main-content { position: absolute; inset: 0; z-index: 10; opacity: 0; transition: opacity 2s ease-in-out; pointer-events: none; }
         #hint-text { position: absolute; top: 25%; left: 50%; transform: translateX(-50%); color: #8a9549; font-size: 13px; font-weight: 700; letter-spacing: 1px; text-shadow: 0 0 10px rgba(0,0,0,0.5); animation: softFlicker 3s infinite ease-in-out; pointer-events: none; text-align: center; width: 100%; }
         @keyframes softFlicker { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
         
-        .icon-item { position: absolute; height: auto; cursor: pointer; pointer-events: auto; animation: floatWobble 6s ease-in-out infinite; }
+        .icon-item { position: absolute; width: 120px; height: auto; cursor: pointer; pointer-events: auto; animation: floatWobble 6s ease-in-out infinite; }
         .icon-item img { width: 100%; height: auto; display: block; filter: drop-shadow(4px 6px 10px rgba(0, 0, 0, 0.4)); transition: transform 0.3s ease; }
         @keyframes floatWobble { 0%, 100% { transform: translateY(0) rotate(0deg); } 25% { transform: translateY(-8px) rotate(1deg); } 50% { transform: translateY(-4px) rotate(-1deg); } 75% { transform: translateY(-10px) rotate(0.5deg); } }
         
-        .icon-1 { width: 115px; top: 35%; left: 5%; }
-        .icon-2 { width: 120px; top: 48%; left: 45%; }
-        .icon-3 { width: 132px; top: 42%; left: 67.5%; }
-        .icon-4 { width: 100px; top: 59.5%; left: 54.5%; }
-        .icon-5 { width: 145px; top: 71%; left: 43%; }
-        .icon-6 { width: 215px; top: 55%; left: 0%; }
+        /* Susunan letak dipertahankan, ukuran disamakan rata (120px) */
+        .icon-1 { top: 35%; left: 5%; }
+        .icon-2 { top: 48%; left: 42%; }
+        .icon-3 { top: 42%; left: 68%; }
+        .icon-4 { top: 59.5%; left: 54.5%; }
+        .icon-5 { top: 71%; left: 43%; }
+        .icon-6 { top: 55%; left: 2%; }
 
-        /* --- 5. KUCING, MAKANAN, RUMPUT (MENGGUNAKAN PERSEN RESPONSIF) --- */
+        /* --- 5. KUCING, MAKANAN, RUMPUT --- */
         #cat-area { position: absolute; bottom: 0; left: 0; width: 100%; height: 32.5%; z-index: 20; pointer-events: none; }
         
         #food-wrapper { 
             position: absolute; 
             pointer-events: auto; 
             z-index: 50; 
-            width: 20%; /* Proporsional dari lebar kontainer */
+            width: 20%; 
             left: 5.3%; 
             bottom: 2.25%; 
             display: flex; 
@@ -108,9 +109,9 @@
             left: 26.6%; 
             pointer-events: auto; 
             z-index: 21; 
-            width: 33.3%; /* Setara 150px dari bingkai 450px */
+            width: 33.3%; 
             aspect-ratio: 1 / 1; 
-            bottom: -1.37%; /* Setara amblas -11px dari bingkai 800px */
+            bottom: -1.37%; 
         }
         #cat-bubble { position: absolute; top: 6.6%; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.9); padding: 2px 6px; border-radius: 8px; font-size: 10px; font-weight: bold; color: #333; opacity: 0; transition: opacity 0.3s; z-index: 100; white-space: nowrap; }
         .cat-vid { width: 100%; height: 100%; object-fit: contain; }
@@ -534,16 +535,16 @@
             
             // Perjalanan menuju mangkok makan menggunakan koordinat persen responsif
             catBox.style.left = "3.3%"; 
-            catBox.style.bottom = "8.5%"; 
+            catBox.style.bottom = "11%"; /* DINAINKAN dari 8.5% agar wajah tidak tenggelam */
             
             walkR.classList.add('hidden'); walkL.classList.remove('hidden'); walkL.play();
             setTimeout(() => {
                 walkL.classList.add('hidden'); eatV.classList.remove('hidden'); eatV.play();
                 catBox.style.transition = "none"; 
                 
-                // UKURAN DAN POSISI SAAT MAKAN (DIPERBAIKI)
-                catBox.style.width = "26%";    /* Skala pas: setara ~117px biar ga kekecilan */
-                catBox.style.bottom = "8.5%";  /* Posisi tinggi presisi di depan wadah makan */
+                // UKURAN DAN POSISI SAAT MAKAN
+                catBox.style.width = "26%";    
+                catBox.style.bottom = "11%";  /* DIPASTIKAN tetap di 11% saat animasi makan berjalan */
                 
                 setTimeout(() => {
                     eatV.classList.add('hidden'); bubble.style.opacity = "0";
