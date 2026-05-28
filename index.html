@@ -26,7 +26,7 @@
             position: absolute; inset: 0; z-index: 100;
             background: url('awal.png') center/100% 100% no-repeat;
             display: flex; align-items: flex-end; justify-content: center; 
-            padding-bottom: 81%; transition: opacity 1s ease;
+            padding-bottom: 82.5%; transition: opacity 1s ease;
         }
 
         .btn-buka {
@@ -51,7 +51,7 @@
         /* --- 4. IKON MENU --- */
         #main-content { position: absolute; inset: 0; z-index: 10; opacity: 0; transition: opacity 2s ease-in-out; pointer-events: none; }
         
-        #hint-text { position: absolute; top: 24%; left: 50%; transform: translateX(-50%); color: #8a9549; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-shadow: 0 0 10px rgba(0,0,0,0.5); animation: softFlicker 3s infinite ease-in-out; pointer-events: none; text-align: center; width: 100%; }
+        #hint-text { position: absolute; top: 26%; left: 50%; transform: translateX(-50%); color: #8a9549; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-shadow: 0 0 10px rgba(0,0,0,0.5); animation: softFlicker 3s infinite ease-in-out; pointer-events: none; text-align: center; width: 100%; }
         @keyframes softFlicker { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
         
         .icon-item { position: absolute; height: auto; cursor: pointer; pointer-events: auto; animation: floatWobble 6s ease-in-out infinite; }
@@ -62,17 +62,17 @@
         .icon-1 { width: 26%; top: 37%; left: 5%; }
         .icon-2 { width: 28%; top: 48%; left: 45%; }
         .icon-3 { width: 30%; top: 44%; left: 67.5%; }
-        .icon-4 { width: 23%; top: 59%; left: 54.5%; }
+        .icon-4 { width: 23%; top: 59.5%; left: 54.5%; }
         .icon-5 { width: 31%; top: 70%; left: 43%; }
         .icon-6 { width: 48%; top: 54%; left: 5%; }
 
         /* --- 5. AREA INTERAKTIF KUCING (RUMPUT DI PALING BAWAH LAYAR) --- */
         #cat-area { 
             position: absolute; 
-            bottom: 0; /* Diubah dari 90 ke 0 agar pas di bawah layar HP */
+            bottom: 0; 
             left: 0; 
             width: 100%; 
-            height: 160px; 
+            height: auto; /* Diubah ke auto agar mengikuti tinggi asli gambar rumput */
             z-index: 20; 
             pointer-events: none; 
         }
@@ -82,7 +82,7 @@
             z-index: 50; 
             width: 85px; 
             left: 20px; 
-            bottom: 10px; /* Disesuaikan sedikit agar pas di atas rumput utuh */
+            bottom: 35px; /* Dinaikkan ke 35px agar mangkok tidak terpotong navbar bawah */
             display: flex; 
             flex-direction: column; 
             align-items: center; 
@@ -98,13 +98,13 @@
             z-index: 21; 
             width: 140px; 
             height: 140px; 
-            bottom: 0; /* Diubah ke 0 agar kaki menapak pas di atas rumput yang tidak terpotong */
+            bottom: 20px; /* Dinaikkan ke 20px agar kaki kucing menapak pas di atas rumput baru */
         }
         #cat-bubble { position: absolute; top: 25px; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.9); padding: 2px 6px; border-radius: 8px; font-size: 11px; font-weight: bold; color: #333; opacity: 0; transition: opacity 0.3s; z-index: 100; white-space: nowrap; }
         .cat-vid { width: 100%; height: 100%; object-fit: contain; }
         
-        #grass-layer { position: absolute; bottom: 0; left: 0; width: 100%; pointer-events: none; z-index: 30; display: flex; align-items: flex-end; }
-        #grass-image { width: 100%; height: auto; margin-bottom: 0; } /* Diubah ke 0 agar bagian bawah rumput tidak terpotong keluar container */
+        #grass-layer { position: relative; width: 100%; pointer-events: none; z-index: 30; display: flex; }
+        #grass-image { width: 100%; height: auto; display: block; }
 
         /* --- 6. MODAL SYSTEM --- */
         #modal { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; }
@@ -278,7 +278,6 @@
             lb.style.display = 'flex';
         }
 
-        // Penyimpanan Lokal Ucapan
         function simpanUcapan() {
             const nama = document.getElementById('input-nama').value.trim();
             const teks = document.getElementById('input-teks').value.trim();
@@ -418,9 +417,9 @@
             bubble.innerText = "Terima kasih, meow!"; bubble.style.opacity = "1";
             catBox.style.transition = "left 3s ease-out, bottom 3s ease-out"; 
             
-            /* Kucing berhenti pas sejajar dengan wadah makanan di atas rumput utuh */
+            /* Sesuai koordinat piring baru yang naik ke 35px */
             catBox.style.left = "15px"; 
-            catBox.style.bottom = "24px"; 
+            catBox.style.bottom = "50px"; 
             
             walkR.classList.add('hidden'); walkL.classList.remove('hidden'); walkL.play();
             setTimeout(() => {
@@ -431,8 +430,8 @@
                     window.isEating = false; foodWrapper.classList.add('pulse-active');
                     catBox.style.transition = "bottom 0.5s ease, width 0.5s ease";
                     
-                    /* Dikembalikan menapak di atas rumput semula */
-                    catBox.style.bottom = "0"; 
+                    /* Kembalikan tinggi menapak patroli biasa */
+                    catBox.style.bottom = "20px"; 
                     catBox.style.width = "140px"; 
                     startPatrol();
                 }, 5000);
