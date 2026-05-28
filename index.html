@@ -8,49 +8,36 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body, html { height: 100%; overflow: hidden; background: #000; display: flex; justify-content: center; align-items: center; }
 
-        /* --- KUNCI TATALETAK MUTLAK: Mengikuti lebar layar agar proporsi atas-bawah tidak hancur di HP pendek --- */
+        /* --- BINGKAI UTAMA: Mengunci ukuran dan rasio di semua jenis HP --- */
         .app-container {
             position: relative;
             width: 100vw;
-            /* Tinggi dihitung mutlak dari aspek rasio lebar (9 / 19.5 = ~2.166). Menggunakan CQW/VW agar konsisten */
+            /* Tinggi dihitung mutlak berdasarkan proporsi standar agar rasio icon tetap konstan */
             height: calc(100vw * (19.5 / 9)); 
             max-width: 450px; 
-            max-height: 975px; /* Disesuaikan pas dengan max-width 450px agar presisi rasio */
+            max-height: 975px; 
             overflow: hidden;
             background: #000;
             box-shadow: 0 0 30px rgba(0,0,0,0.8);
-            flex-shrink: 0; /* Mencegah container menciut di layar pendek */
+            flex-shrink: 0;
         }
 
-                /* --- 1. OVERLAY AWAL (DIKUNCI PRESISI) --- */
+        /* --- 1. OVERLAY AWAL --- */
         #overlay-awal {
-            position: absolute; 
-            inset: 0; 
-            z-index: 100;
+            position: absolute; inset: 0; z-index: 100;
             background: url('awal.png') center/100% 100% no-repeat;
-            display: block; /* Diubah dari flex ke block agar posisi tombol bisa dikunci pakai top/bottom persen */
-            transition: opacity 1s ease;
+            display: block; transition: opacity 1s ease;
         }
 
         .btn-buka {
             position: absolute;
-            /* Mengunci posisi tombol murni berdasarkan tinggi gambar latar belakang */
-            bottom: 45%; /* <--- UBAH PERSEN INI jika ingin menaikkan atau menurunkan tombol */
+            bottom: 35%; /* Mengunci posisi tombol dihitung dari bawah container utama */
             left: 50%;
-            transform: translateX(-50%); /* Memastikan tombol selalu berada tepat di tengah secara horizontal */
-            
-            padding: 12px 35px; 
-            border: 2px solid rgba(255,255,255,0.5); 
-            border-radius: 12px;
-            background: #c18f30; 
-            color: white; 
-            cursor: pointer; 
-            font-weight: 800;
-            text-transform: uppercase; 
-            letter-spacing: 3px; 
-            font-size: 16px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4); 
-            transition: all 0.3s ease;
+            transform: translateX(-50%);
+            padding: 10px 30px; border: 2px solid rgba(255,255,255,0.5); border-radius: 12px;
+            background: #c18f30; color: white; cursor: pointer; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 3px; font-size: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4); transition: all 0.3s ease;
             white-space: nowrap;
         }
 
@@ -68,69 +55,32 @@
 
         /* --- 4. IKON MENU --- */
         #main-content { position: absolute; inset: 0; z-index: 10; opacity: 0; transition: opacity 2s ease-in-out; pointer-events: none; }
-        
-        #hint-text { position: absolute; top: 26%; left: 50%; transform: translateX(-50%); color: #8a9549; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-shadow: 0 0 10px rgba(0,0,0,0.5); animation: softFlicker 3s infinite ease-in-out; pointer-events: none; text-align: center; width: 100%; }
+        #hint-text { position: absolute; top: 25%; left: 50%; transform: translateX(-50%); color: #8a9549; font-size: 13px; font-weight: 700; letter-spacing: 1px; text-shadow: 0 0 10px rgba(0,0,0,0.5); animation: softFlicker 3s infinite ease-in-out; pointer-events: none; text-align: center; width: 100%; }
         @keyframes softFlicker { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
         
         .icon-item { position: absolute; height: auto; cursor: pointer; pointer-events: auto; animation: floatWobble 6s ease-in-out infinite; }
-        .icon-item img { width: 100%; height: auto; display: block; filter: drop-shadow(4px 6px 10px rgba(0, 0, 0, 0.4)); }
-        @keyframes floatWobble { 0%, 100% { transform: translateY(0) rotate(0deg); } 25% { transform: translateY(-6px) rotate(0.5deg); } 50% { transform: translateY(-3px) rotate(-0.5deg); } 75% { transform: translateY(-8px) rotate(0.2deg); } }
+        .icon-item img { width: 100%; height: auto; display: block; filter: drop-shadow(4px 6px 10px rgba(0, 0, 0, 0.4)); transition: transform 0.3s ease; }
+        @keyframes floatWobble { 0%, 100% { transform: translateY(0) rotate(0deg); } 25% { transform: translateY(-8px) rotate(1deg); } 50% { transform: translateY(-4px) rotate(-1deg); } 75% { transform: translateY(-10px) rotate(0.5deg); } }
         
-        /* Posisi Koordinat & Ukuran Persen (Sama Persis) */
-        .icon-1 { width: 26%; top: 37%; left: 5%; }
-        .icon-2 { width: 28%; top: 48%; left: 45%; }
-        .icon-3 { width: 30%; top: 44%; left: 67.5%; }
-        .icon-4 { width: 23%; top: 59.5%; left: 54.5%; }
-        .icon-5 { width: 32%; top: 71%; left: 43%; }
-        .icon-6 { width: 48%; top: 55%; left: 5%; }
+        /* Ukuran PX dan Koordinat Persen Asli */
+        .icon-1 { width: 115px; top: 35%; left: 5%; }
+        .icon-2 { width: 120px; top: 48%; left: 45%; }
+        .icon-3 { width: 132px; top: 42%; left: 67.5%; }
+        .icon-4 { width: 100px; top: 59.5%; left: 54.5%; }
+        .icon-5 { width: 145px; top: 71%; left: 43%; }
+        .icon-6 { width: 215px; top: 55%; left: 0%; }
 
-        /* --- 5. AREA INTERAKTIF KUCING & RUMPUT --- */
-        #cat-area { 
-            position: absolute; 
-            bottom: 25px; 
-            left: 0; 
-            width: 100%; 
-            height: 160px; 
-            z-index: 20; 
-            pointer-events: none; 
-        }
-        #food-wrapper { 
-            position: absolute; 
-            pointer-events: auto; 
-            z-index: 50; 
-            width: 85px; 
-            left: 20px; 
-            bottom: 12px; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-        }
+        /* --- 5. KUCING --- */
+        #cat-area { position: absolute; bottom: 0; left: 0; width: 100%; height: 200px; z-index: 20; pointer-events: none; }
+        #food-wrapper { position: absolute; pointer-events: auto; z-index: 50; width: 90px; left: 24px; bottom: 14px; display: flex; flex-direction: column; align-items: center; }
         .pulse-active { animation: bowlShake 0.8s infinite ease-in-out; }
-        @keyframes bowlShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-1px) rotate(-0.5deg); } 75% { transform: translateX(1px) rotate(0.5deg); } }
+        @keyframes bowlShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-1.5px) rotate(-1deg); } 75% { transform: translateX(1.5px) rotate(1deg); } }
         #cat-food-icon { width: 100%; cursor: pointer; filter: drop-shadow(4px 10px 8px rgba(0,0,0,0.6)); }
-        
-        #cat-container { 
-            position: absolute; 
-            left: 110px; 
-            pointer-events: auto; 
-            z-index: 21; 
-            width: 110px; 
-            height: 110px; 
-            bottom: 15px; 
-        }
-        #cat-bubble { position: absolute; top: 25px; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.9); padding: 1.5px 4px; border-radius: 8px; font-size: 9px; font-weight: bold; color: #333; opacity: 0; transition: opacity 0.3s; z-index: 100; white-space: nowrap; }
+        #cat-container { position: absolute; left: 120px; pointer-events: auto; z-index: 21; width: 150px; height: 150px; bottom: -15px; }
+        #cat-bubble { position: absolute; top: 30px; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.9); padding: 2px 6px; border-radius: 8px; font-size: 10px; font-weight: bold; color: #333; opacity: 0; transition: opacity 0.3s; z-index: 100; }
         .cat-vid { width: 100%; height: 100%; object-fit: contain; }
-        
-        #grass-layer { 
-            position: absolute; 
-            bottom: 5px; 
-            left: 0; 
-            width: 100%; 
-            pointer-events: none; 
-            z-index: 30; 
-            display: flex; 
-        }
-        #grass-image { width: 100%; height: auto; display: block; }
+        #grass-layer { position: absolute; bottom: 0; left: 0; width: 100%; pointer-events: none; z-index: 30; display: flex; align-items: flex-end; }
+        #grass-image { width: 100%; height: auto; margin-bottom: -5px; }
 
         /* --- 6. MODAL SYSTEM --- */
         #modal { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; }
@@ -141,8 +91,10 @@
 
         .tentang-wrapper { position: relative; width: 100%; max-width: 450px; margin: 0 auto; text-align: center; overflow: hidden; }
         .overlay-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
-        .ig-pria, .ig-wanita { position: absolute; text-decoration: none; font-size: 3.6vw; font-weight: 800; color: #d4af37; pointer-events: auto; white-space: nowrap; animation: igPulse 2s infinite ease-in-out; }
+        .ig-pria, .ig-wanita, .foto-pria, .foto-wanita { position: absolute; }
+        .ig-pria, .ig-wanita { text-decoration: none; font-size: 3.6vw; font-weight: 800; color: #d4af37; pointer-events: auto; white-space: nowrap; animation: igPulse 2s infinite ease-in-out; }
         @keyframes igPulse { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0px rgba(212,175,55,0)); } 50% { transform: scale(1.06); filter: drop-shadow(0 0 4px rgba(212,175,55,0.6)); } }
+        .foto-pria, .foto-wanita { object-fit: contain; pointer-events: none; }
         @media (min-width: 450px) { .ig-pria, .ig-wanita { font-size: 16px; } }
 
         /* --- KOLOM UCAPAN & KOMENTAR --- */
@@ -151,7 +103,6 @@
         .form-ucapan input:focus, .form-ucapan textarea:focus { border-color: #d4af37; }
         .btn-kirim-ucapan { background: #d4af37; color: white; border: none; padding: 8px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 13px; transition: background 0.2s; }
         .btn-kirim-ucapan:hover { background: #b8952e; }
-        
         .area-komentar { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; max-height: 280px; overflow-y: auto; padding-right: 4px; }
         .area-komentar::-webkit-scrollbar { width: 3px; }
         .area-komentar::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
@@ -174,8 +125,9 @@
         .custom-img-container { width: 100%; display: flex; justify-content: center; margin-bottom: 15px; }
         .custom-img-container img { width: 100%; height: auto; max-width: 450px; display: block; object-fit: cover; }
         .maps-img-container { width: 100%; display: flex; flex-direction: column; align-items: center; margin-bottom: 15px; }
-        .maps-img-container a { display: block; width: 100%; max-width: 450px; cursor: pointer; }
-        .maps-img-container img { width: 100%; height: auto; display: block; object-fit: cover; }
+        .maps-img-container a { display: block; width: 100%; max-width: 450px; cursor: pointer; transition: transform 0.2s; }
+        .maps-img-container a:hover { transform: scale(1.02); }
+        .maps-img-container img { width: 100%; height: auto; display: block; object-fit: cover; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.12)); }
 
         #lightbox { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,0.9); display: none; align-items: center; justify-content: center; cursor: pointer; }
         #lightbox img { max-width: 90%; max-height: 80%; }
@@ -185,6 +137,7 @@
 <body>
 
     <div class="app-container">
+
         <div id="overlay-awal">
             <button class="btn-buka" onclick="bukaUndangan()">Mulai</button>
         </div>
@@ -219,6 +172,7 @@
                 <div id="grass-layer"><img src="rumput.png" id="grass-image"></div>
             </div>
         </div>
+
     </div>
 
     <div id="modal" onclick="tutup()">
@@ -307,11 +261,18 @@
         function simpanUcapan() {
             const nama = document.getElementById('input-nama').value.trim();
             const teks = document.getElementById('input-teks').value.trim();
-            if(!nama || !teks) { alert("Harap isi nama dan ucapan doa restu Anda."); return; }
+            
+            if(!nama || !teks) {
+                alert("Harap isi nama dan ucapan doa restu Anda.");
+                return;
+            }
+
             let dataLama = localStorage.getItem('undangan_ucapan');
             let listUcapan = dataLama ? JSON.parse(dataLama) : [];
+
             listUcapan.unshift({ nama: nama, teks: teks }); 
             localStorage.setItem('undangan_ucapan', JSON.stringify(listUcapan));
+
             document.getElementById('input-nama').value = '';
             document.getElementById('input-teks').value = '';
             tampilkanUcapan();
@@ -320,14 +281,17 @@
         function tampilkanUcapan() {
             const container = document.getElementById('box-list-ucapan');
             if(!container) return;
+
             let dataLama = localStorage.getItem('undangan_ucapan');
             let listUcapan = dataLama ? JSON.parse(dataLama) : [];
+
             let htmlKomentar = `
                 <div class="box-komentar pinned">
                     <div class="nama-komentator">Latifa & Ilmi <span class="badge-owner">Mempelai</span></div>
                     <div class="isi-komentator">Terima kasih ucapan & doa nya, ditunggu kehadiran saudara/i semua🤍</div>
                 </div>
             `;
+
             listUcapan.forEach(item => {
                 htmlKomentar += `
                     <div class="box-komentar">
@@ -341,24 +305,36 @@
 
         function runCountdown() {
             const targetDate = new Date("June 14, 2026 00:00:00").getTime();
+            
             clearInterval(countdownInterval);
             countdownInterval = setInterval(() => {
                 const now = new Date().getTime();
                 const distance = targetDate - now;
+
                 let days = Math.floor(distance / (1000 * 60 * 60 * 24));
                 let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                if (distance < 0) { clearInterval(countdownInterval); days = hours = minutes = seconds = 0; }
+
+                if (distance < 0) {
+                    clearInterval(countdownInterval);
+                    days = hours = minutes = seconds = 0;
+                }
+
                 const dStr = String(days).padStart(2, '0');
                 const hStr = String(hours).padStart(2, '0');
                 const mStr = String(minutes).padStart(2, '0');
                 const sStr = String(seconds).padStart(2, '0');
+
                 if (document.getElementById("d1")) {
-                    document.getElementById("d1").innerText = dStr[0]; document.getElementById("d2").innerText = dStr[1];
-                    document.getElementById("h1").innerText = hStr[0]; document.getElementById("h2").innerText = hStr[1];
-                    document.getElementById("m1").innerText = mStr[0]; document.getElementById("m2").innerText = mStr[1];
-                    document.getElementById("s1").innerText = sStr[0]; document.getElementById("s2").innerText = sStr[1];
+                    document.getElementById("d1").innerText = dStr[0];
+                    document.getElementById("d2").innerText = dStr[1];
+                    document.getElementById("h1").innerText = hStr[0];
+                    document.getElementById("h2").innerText = hStr[1];
+                    document.getElementById("m1").innerText = mStr[0];
+                    document.getElementById("m2").innerText = mStr[1];
+                    document.getElementById("s1").innerText = sStr[0];
+                    document.getElementById("s2").innerText = sStr[1];
                 }
             }, 1000);
         }
@@ -367,51 +343,127 @@
             const mTitle = document.getElementById('m-title');
             const mBody = document.getElementById('m-body');
             mTitle.innerText = judul; 
+            
             if (isTentang) {
                 mBody.innerHTML = `
                     <div class="tentang-wrapper">
                         <img src="kami.png" style="width: 100%; height: auto; display: block;">
                         <div class="overlay-layer">
+                            <img src="" class="foto-pria" 
+                                 style="top:10%; left:39%; width:48%; height: auto; max-height: 300px; z-index: 1;">
+                            <img src="" class="foto-wanita" 
+                                 style="top:10%; left:-4%; width:48%; height: auto; max-height: 300px; z-index: 1;">
+                            
                             <a href="https://instagram.com/_illmii" target="_blank" class="ig-pria" style="top:46%; left:65%; z-index: 100;">@_illmii</a>
                             <a href="https://instagram.com/latifaries" target="_blank" class="ig-wanita" style="top:46%; left:18%; z-index: 40;">@latifaries</a>
                         </div>
                     </div>
                 `;
             } else if (judul === 'Love Story') {
-                mBody.innerHTML = `<div style="width: 100%; height: auto; display: flex; justify-content: center;"><img src="story.png" style="width: 100%; height: auto; border-radius: 4px;"></div>`;
+                mBody.innerHTML = `
+                    <div style="width: 100%; height: auto; display: flex; justify-content: center; align-items: center;">
+                        <img src="story.png" style="width: 100%; height: auto; border-radius: 4px; display: block; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                    </div>
+                `;
             } else if (judul === 'Ucapan & Doa') {
-                mBody.innerHTML = `<div class="form-ucapan"><input type="text" id="input-nama" placeholder="Nama Anda" maxlength="40"><textarea id="input-teks" placeholder="Tuliskan ucapan doa restu Anda..." rows="3" maxlength="300"></textarea><button class="btn-kirim-ucapan" onclick="simpanUcapan()">Kirim Ucapan</button></div><div class="area-komentar" id="box-list-ucapan"></div>`;
+                mBody.innerHTML = `
+                    <div class="form-ucapan">
+                        <input type="text" id="input-nama" placeholder="Nama Anda" maxlength="40">
+                        <textarea id="input-teks" placeholder="Tuliskan ucapan doa restu Anda..." rows="3" maxlength="300"></textarea>
+                        <button class="btn-kirim-ucapan" onclick="simpanUcapan()">Kirim Ucapan</button>
+                    </div>
+                    <div class="area-komentar" id="box-list-ucapan"></div>
+                `;
                 tampilkanUcapan();
             } else if (judul === 'Rangkaian Acara') {
-                mBody.innerHTML = `<div class="custom-img-container" style="margin-top: 10px;"><img src="rangkai.png" style="width: 100%; height: auto; border-radius: 4px;"></div>`;
+                mBody.innerHTML = `
+                    <div class="custom-img-container" style="margin-top: 10px;">
+                        <img src="rangkai.png" alt="Foto Rangkaian Acara" style="width: 100%; height: auto; max-width: 450px; border-radius: 4px; display: block; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                    </div>
+                `;
             } else if (judul === 'Waktu & Tempat') {
-                mBody.innerHTML = `<div class="acara-container"><div class="countdown-box-wrapper"><div class="flip-segment"><div class="flip-card-container"><div id="d1" class="flip-card">0</div><div id="d2" class="flip-card">0</div></div><span class="flip-label">Hari</span></div><div class="flip-segment"><div class="flip-card-container"><div id="h1" class="flip-card">0</div><div id="h2" class="flip-card">0</div></div><span class="flip-label">Jam</span></div><div class="flip-segment"><div class="flip-card-container"><div id="m1" class="flip-card">0</div><div id="m2" class="flip-card">0</div></div><span class="flip-label">Menit</span></div><div class="flip-segment"><div class="flip-card-container"><div id="s1" class="flip-card">0</div><div id="s2" class="flip-card">0</div></div><span class="flip-label">Detik</span></div></div><div class="custom-img-container"><img src="waktu.png"></div><div class="maps-img-container"><p style="font-size: 14px; font-weight: bold; color: #414528; margin-bottom: 8px;">Google Maps Lokasi</p><a href="https://g.co/kgs/4M9iUc" target="_blank"><img src="maps.png"></a></div></div>`;
+                mBody.innerHTML = `
+                    <div class="acara-container">
+                        <div class="info-lokasi-waktu">
+                            <p style="color: #d4af37; font-size: 16px; margin-bottom: 5px;"></p>
+                            <p style="font-size: 12px; color: #666;"></p>
+                        </div>
+
+                        <div class="countdown-box-wrapper">
+                            <div class="flip-segment">
+                                <div class="flip-card-container">
+                                    <div id="d1" class="flip-card">0</div>
+                                    <div id="d2" class="flip-card">0</div>
+                                </div>
+                                <span class="flip-label">Hari</span>
+                            </div>
+                            <div class="flip-segment">
+                                <div class="flip-card-container">
+                                    <div id="h1" class="flip-card">0</div>
+                                    <div id="h2" class="flip-card">0</div>
+                                </div>
+                                <span class="flip-label">Jam</span>
+                            </div>
+                            <div class="flip-segment">
+                                <div class="flip-card-container">
+                                    <div id="m1" class="flip-card">0</div>
+                                    <div id="m2" class="flip-card">0</div>
+                                </div>
+                                <span class="flip-label">Menit</span>
+                            </div>
+                            <div class="flip-segment">
+                                <div class="flip-card-container">
+                                    <div id="s1" class="flip-card">0</div>
+                                    <div id="s2" class="flip-card">0</div>
+                                </div>
+                                <span class="flip-label">Detik</span>
+                            </div>
+                        </div>
+
+                        <div class="custom-img-container">
+                            <img src="waktu.png" alt="Foto Rangkaian Acara">
+                        </div>
+
+                        <div class="maps-img-container">
+                            <p style="font-size: 14px; font-weight: bold; color: #414528; margin-bottom: 8px;">Google Maps Lokasi</p>
+                            <a href="https://g.co/kgs/4M9iUc" target="_blank">
+                                <img src="maps.png" alt="Google Maps Lokasi">
+                            </a>
+                        </div>
+                    </div>
+                `;
                 runCountdown(); 
             } else if (judul === 'Galeri') {
-                mBody.innerHTML = `<div class="galeri-scroll-container" style="display: flex; flex-direction: column; width: 100%; padding-bottom: 10px; gap: 8px;">
-                    <img src="1.png" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                    <img src="2.png" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                    <img src="3.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                    <img src="4.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                    <img src="5.png" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                    <img src="6.png" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                    <img src="7.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                    <img src="8.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                    <img src="9.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                    <img src="10.png" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                    <img src="11.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                    <img src="12.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                    <img src="13.png" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                    <img src="14.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                    <img src="15.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                    <img src="16.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                    <img src="17.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                    <img src="18.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; cursor: pointer;">
-                </div>`;
+                mBody.innerHTML = `
+                    <div class="galeri-scroll-container" style="display: flex; flex-direction: column; width: 100%; padding-bottom: 10px; gap: 8px;">
+                        <img src="1.png" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="2.png" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="3.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="4.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="5.png" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="6.png" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="7.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="8.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="9.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="10.png" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="11.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="12.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="13.png" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="14.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="15.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="16.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="17.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                        <img src="18.jpg" onclick="zoomFoto(this.src)" style="width: 100%; height: auto; object-fit: cover; display: block; cursor: pointer; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));">
+                    </div>
+                `;
+            } else {
+                mBody.innerHTML = `<p style="color:#666; text-align:center;">Konten untuk ${judul} segera hadir...</p>`;
             }
+
             document.getElementById('modal').style.display = 'flex';
             if (suaraAktif) { suaraAktif.pause(); suaraAktif.currentTime = 0; }
-            suaraAktif = document.getElementById(idSuara); setBgmVolume(0.1); 
+            suaraAktif = document.getElementById(idSuara);
+            setBgmVolume(0.1); 
             setTimeout(() => { if(document.getElementById('modal').style.display === 'flex') { suaraAktif.play(); } }, 600); 
             suaraAktif.onended = () => { setBgmVolume(0.5); };
         }
@@ -419,7 +471,8 @@
         function tutup() {
             document.getElementById('modal').style.display = 'none';
             if (suaraAktif) { suaraAktif.pause(); suaraAktif.currentTime = 0; }
-            clearInterval(countdownInterval); setBgmVolume(0.5); 
+            clearInterval(countdownInterval); 
+            setBgmVolume(0.5); 
         }
 
         function startPatrol() {
@@ -427,7 +480,7 @@
             bubble.innerText = "meow meow"; bubble.style.opacity = "1";
             walkL.classList.add('hidden'); walkR.classList.remove('hidden'); walkR.play();
             catBox.style.transition = "left 6s linear, bottom 0.5s ease";
-            catBox.style.left = "calc(110% - 125px)"; 
+            catBox.style.left = "calc(110% - 150px)"; 
             setTimeout(() => {
                 if (window.isEating) return;
                 walkR.classList.add('hidden'); walkL.classList.remove('hidden'); walkL.play();
@@ -442,23 +495,16 @@
             foodWrapper.classList.remove('pulse-active');
             bubble.innerText = "Terima kasih, meow!"; bubble.style.opacity = "1";
             catBox.style.transition = "left 3s ease-out, bottom 3s ease-out"; 
-            
-            /* Koordinat menyamper piring makanan */
-            catBox.style.left = "15px"; 
-            catBox.style.bottom = "12px"; 
-            
+            catBox.style.left = "15px"; catBox.style.bottom = "44px"; 
             walkR.classList.add('hidden'); walkL.classList.remove('hidden'); walkL.play();
             setTimeout(() => {
                 walkL.classList.add('hidden'); eatV.classList.remove('hidden'); eatV.play();
-                catBox.style.transition = "none"; catBox.style.width = "70px"; 
+                catBox.style.transition = "none"; catBox.style.width = "73px"; 
                 setTimeout(() => {
                     eatV.classList.add('hidden'); bubble.style.opacity = "0";
                     window.isEating = false; foodWrapper.classList.add('pulse-active');
                     catBox.style.transition = "bottom 0.5s ease, width 0.5s ease";
-                    
-                    /* Kembalikan menapak di rumput semula saat patroli biasa */
-                    catBox.style.bottom = "0px"; 
-                    catBox.style.width = "140px"; 
+                    catBox.style.bottom = "-15px"; catBox.style.width = "150px"; 
                     startPatrol();
                 }, 5000);
             }, 3000); 
